@@ -1,0 +1,6 @@
+module chip8(
+	input wire clock,
+	input wire[7:0] ram_data_in,
+	output reg[11:0] ram_address_out,
+	output reg[7:0] ram_data_out,
+);

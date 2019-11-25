@@ -1,0 +1,6 @@
+
+State Machine - |DE0_Nano|chip8:cpu|stage
+Name stage.INSTR_FETCH1 stage.INSTR_EXEC1 stage.INSTR_FETCH2 
+stage.INSTR_FETCH1 0 0 0 
+stage.INSTR_FETCH2 1 0 1 
+stage.INSTR_EXEC1 1 1 0 
