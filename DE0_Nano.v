@@ -191,14 +191,23 @@ wire ram1_wren_b;
 chip8 cpu(
 	CLOCK_50,
 	KEY[0],
-	ram_data_out_a,
-	ram_data_in_a,
-	ram_address_in_a,
+	KEY[1],
+	ram1_data_out_a,
+	ram1_address_in_a,
+	ram1_data_in_a,
 	ram1_wren_a,
-	LED
+	LED[7:0]
 );
 
-ram1 RAM1 (
+ram2 RAM1 (
+	ram1_address_in_a,
+	CLOCK_50,
+	ram1_data_in_a,
+	ram1_wren_a,
+	ram1_data_out_a
+);
+
+/*ram1 RAM1 (
 	ram1_address_in_a,
 	ram1_address_in_b,
 	CLOCK_50,
@@ -207,7 +216,8 @@ ram1 RAM1 (
 	ram1_wren_a,
 	ram1_wren_b,
 	ram1_data_out_a,
-	ram1_data_out_b);
+	ram1_data_out_b
+);*/
 
 
 endmodule
