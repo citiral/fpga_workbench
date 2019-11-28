@@ -1,1 +1,0 @@
-Info (10281): Verilog HDL Declaration information at chip8.v(14): object "DELAY" differs only in case from object "delay" in the same scope File: D:/source/fpga_workbench/chip8.v Line: 14
