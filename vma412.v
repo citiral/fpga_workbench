@@ -2,28 +2,30 @@ module vma412(
 	input wire clock,
 	input wire reset,
 	
+	input wire[0:64*32-1] screen/*,
+	
 	inout wire[7:0] data,
 	output wire csx,
 	output wire resx,
 	output wire dcx,
 	output wire wrx,
-	output wire rdx,
+	output wire rdx,*/
+	
+	
 );
 
 
-wire[16:0] rom;
-reg[16:0] pc;
-reg[16:0] instruction;
+wire[15:0] rom;
+reg[15:0] pc;
+reg[15:0] instruction;
 wire[2:0] stage;
 
-parameter STEP0=0, STEP1=1,
-
-
+parameter STEP0=0, STEP1=1;
 
 
 
 always @(posedge clock, negedge reset) begin
-	if (reset == 1'b0) begin
+	/*if (reset == 1'b0) begin
 		data = 0;
 		csx = 0;
 		resx = 0;
@@ -40,7 +42,7 @@ always @(posedge clock, negedge reset) begin
 		end
 		
 		
-	end
+	end*/
 end
 
 

@@ -18,7 +18,7 @@ parameter INSTR_FETCH1=0, INSTR_FETCH2=1, INSTR_EXEC1=2, INSTR_EXEC2=3, DELAY=4,
 // Registers of the cpu
 reg[7:0] registers_data[0:15];
 reg[11:0] register_adr;
-reg[15:0] pc;
+reg[11:0] pc;
 reg[7:0] chip8_dtimer;
 reg[7:0] chip8_stimer;
 
@@ -45,6 +45,9 @@ integer i;
 reg[12:0] stack[0:255];
 reg[7:0] stack_size;
 
+// Screen data
+reg[7:0] screen[0:32*64-1];
+
 
 // Run an instruction with delay
 task delay_stage(input[2:0] next_stage, input[2:0] count);
@@ -68,12 +71,15 @@ always @(posedge clock, negedge reset) begin
 		for (i = 0 ; i < 16 ; i = i+1)
 			registers_data[i] = 0;
 		register_adr = 0;		
-		pc = 0;
+		pc = 12'h200;
 		
 		stack_size = 0;
 		
 		instruction = 0;
 		stage = INSTR_FETCH1;
+		
+		for (i = 0 ; i < 32*64 ; i = i+1)
+			screen[i] = 0;
 		
 	end else begin	
 		// If it is a delay stage, do nothing for delay cycles
@@ -93,12 +99,12 @@ always @(posedge clock, negedge reset) begin
 		end
 		
 		
-		else if (stage == INSTR_FETCH2) begin			 
+		else if (stage == INSTR_FETCH2) begin
 			instruction[15:8] = ram_data_in; // Get the first byte of the instruction read in last stage
 			ram_address_out = pc[11:0] + 1;
 			delay_stage(INSTR_EXEC1, 2);
 		end
-				
+		
 		
 		// Execute the instruction
 		else if (stage == INSTR_EXEC1) begin
@@ -107,7 +113,7 @@ always @(posedge clock, negedge reset) begin
 			instruction[7:0] = ram_data_in;
 			
 			// 6XNN: Store number NN in register VX
-			if (instruction[15:12] == 4'h6) begin				
+			if (instruction[15:12] == 4'h6) begin
 				registers_data[instruction[11:8]] = instruction[7:0];
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
@@ -343,16 +349,47 @@ always @(posedge clock, negedge reset) begin
 				stage = INSTR_FETCH1;
 			end
 			
+			//00E0: Clear the screen
+			else if (instruction[15:0] == 16'h00E0) begin
+				for (i = 0 ; i < 32*64 ; i = i+1)
+					screen[i] = 0;
+				pc = pc + 2;
+				stage = INSTR_FETCH1;
+			end
+			
+			//FX29: Set I to the memory address of the sprite data corresponding to the hexadecimal digit stored in register VX
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h29) begin
+				// values are stored starting from 0, being 5 bytes per character
+				register_adr = instruction[11:8] * 5;
+				pc = pc + 2;
+				stage = INSTR_FETCH1;
+			end
+			
+			//FX55: Store the values of registers V0 to VX inclusive in memory starting at address I
+			//      I is set to I + X + 1 after operation
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h55) begin
+				tmp = 0;
+				stage= INSTR_EXEC2;
+			end
+			
+			//FX65: Fill registers V0 to VX inclusive with the values stored in memory starting at address I
+			//      I is set to I + X + 1 after operation
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h65) begin
+				ram_address_out = register_adr;
+				tmp = 0;
+				delay_stage(INSTR_EXEC2, 2);
+			end
 			
 			//DXYN: Draw a sprite at position VX, VY with N bytes of sprite data starting at the address stored in I
 			//      Set VF to 01 if any set pixels are changed to unset, and 00 otherwise
-			//00E0: Clear the screen
-			//FX29: Set I to the memory address of the sprite data corresponding to the hexadecimal digit stored in register VX
+			else if (instruction[15:12] == 4'hD) begin
+				registers_data[15] = 0;
+				ram_address_out = register_adr;
+				tmp = 0;
+				delay_stage(INSTR_EXEC2, 2);
+			end
+			
 			//FX33: Store the binary-coded decimal equivalent of the value stored in register VX at addresses I, I+1, and I+2
-			//FX55: Store the values of registers V0 to VX inclusive in memory starting at address I
-			//      I is set to I + X + 1 after operation
-			//FX65: Fill registers V0 to VX inclusive with the values stored in memory starting at address I
-			//      I is set to I + X + 1 after operation
 			//0NNN: Execute machine language subroutine at address NNN
 			//CXNN: Set VX to a random number with a mask of NN
 			
@@ -363,13 +400,62 @@ always @(posedge clock, negedge reset) begin
 			end
 		end
 		
-				
-		else if (stage == INSTR_EXEC2) begin			
-			if (instruction == 16'b0) begin
-				ram_write = 0;
-				stage = INSTR_FETCH1;
-				pc = pc + 2;
+		
+		else if (stage == INSTR_EXEC2) begin
+		
+			//FX55: Store the values of registers V0 to VX inclusive in memory starting at address I
+			//      I is set to I + X + 1 after operation
+			if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h55) begin
+				// End the instruction once all bytes have been written
+				if (tmp > instruction[11:8]) begin
+					ram_write = 0;
+					pc = pc + 2;
+					delay_stage(INSTR_FETCH1, 1);
+				end else begin
+					ram_write = 1;
+					ram_address_out = register_adr;
+					ram_data_out = registers_data[tmp];
+					register_adr = register_adr + 1;
+					tmp = tmp + 1;
+				end
 			end
+		
+			//FX65: Fill registers V0 to VX inclusive with the values stored in memory starting at address I
+			//      I is set to I + X + 1 after operation
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h65) begin
+				registers_data[tmp] = ram_data_in;
+				tmp = tmp + 1;
+				register_adr = register_adr + 1;
+				
+				// End the instruction once all bytes have been read
+				if (tmp > instruction[11:8]) begin
+					pc = pc + 2;
+					stage = INSTR_FETCH1;
+				end else begin
+					ram_address_out = register_adr;
+					delay_stage(INSTR_EXEC2, 2);
+				end
+			end
+			
+			//DXYN: Draw a sprite at position VX, VY with N bytes of sprite data starting at the address stored in I
+			//      Set VF to 01 if any set pixels are changed to unset, and 00 otherwise
+			else if (instruction[15:12] == 4'hD) begin
+				if (screen[registers_data[instruction[11:8]]+(registers_data[instruction[7:4]] + tmp)*64] & ram_data_in > 0) begin
+					registers_data[15] = 1;
+				end
+				screen[registers_data[instruction[11:8]]+(registers_data[instruction[7:4]] + tmp)*64] = ram_data_in;
+				
+				tmp = tmp + 1;
+				
+				if (tmp >= instruction[3:0]) begin
+					pc = pc + 2;
+					stage = INSTR_FETCH1;
+				end else begin
+					ram_address_out = register_adr + tmp;
+					delay_stage(INSTR_EXEC2, 2);
+				end
+			end
+			
 		end
 	end
 end

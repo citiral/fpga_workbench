@@ -37,6 +37,12 @@ ram2 RAM1 (
 	ram1_data_out_a
 );
 
+/*vma412 lcd (
+	CLOCK_50,
+	KEY[0],	
+	screen
+);*/
+
 /*ram1 RAM1 (
 	ram1_address_in_a,
 	ram1_address_in_b,
