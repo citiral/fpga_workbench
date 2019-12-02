@@ -17,6 +17,9 @@ wire ram1_wren_b;
 reg CLOCK_50;
 reg[1:0] KEY;
 wire[7:0] LED;
+wire[12:0] GPIO_1;
+wire[7:0] screen_adr;
+wire screen_data;
 
 chip8 cpu(
 	CLOCK_50,
@@ -26,7 +29,8 @@ chip8 cpu(
 	ram1_address_in_a,
 	ram1_data_in_a,
 	ram1_wren_a,
-	LED
+	screen_adr,
+	screen_data
 );
 
 ram2 RAM1 (
@@ -37,23 +41,20 @@ ram2 RAM1 (
 	ram1_data_out_a
 );
 
-/*vma412 lcd (
-	CLOCK_50,
-	KEY[0],	
-	screen
-);*/
 
-/*ram1 RAM1 (
-	ram1_address_in_a,
-	ram1_address_in_b,
+vma412 lcd (
 	CLOCK_50,
-	ram1_data_in_a,
-	ram1_data_in_b,
-	ram1_wren_a,
-	ram1_wren_b,
-	ram1_data_out_a,
-	ram1_data_out_b
-);*/
+	KEY[0],
+	GPIO_1[7:0],
+	GPIO_1[9],
+	GPIO_1[8],
+	GPIO_1[10],
+	GPIO_1[11],
+	GPIO_1[12],
+	screen_adr,
+	screen_data
+);
+
 
 
 // Generate the clock for the test bench

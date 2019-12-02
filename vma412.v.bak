@@ -1,0 +1,81 @@
+module vma412(
+	input wire clock,
+	input wire reset,
+	
+	output reg[7:0] data,
+	output reg csx,
+	output reg resx,
+	output reg dcx,
+	output reg wrx,
+	output reg rdx
+);
+
+
+reg[16:0] rom[0:64];
+reg[16:0] pc;
+reg[16:0] instruction;
+reg[2:0] stage;
+
+parameter STEP1=0, STEP2=1;
+
+
+// Initialize ROM of display
+initial begin
+	$readmemh("../vma412.mem", rom);
+end
+
+
+always @(posedge clock, negedge reset) begin
+	if (reset == 1'b0) begin
+		data = 0;
+		csx = 1;
+		resx = 1;
+		dcx = 1;
+		wrx = 1;
+		rdx = 1;
+		instruction = 0;
+		pc = 0;
+		stage = STEP1;
+	end
+	else begin		
+		
+		if (stage == STEP1) begin
+			instruction = rom[pc];
+		
+			// FFFF = NOP
+			if (instruction == 12'hFFFF) begin
+			
+			end
+						
+			// C?XX = COMMAND
+			else if (instruction[15:12] == 4'hC) begin
+				csx = 0;
+				dcx = 0;
+				wrx = 0;
+				data = instruction[7:0];
+				stage = STEP2;
+			end
+			
+			// D?XX = DATA
+			else if (instruction[15:12] == 4'hD) begin
+				csx = 0;
+				dcx = 1;
+				wrx = 0;
+				data = instruction[7:0];
+				stage = STEP2;
+			end
+		end
+		
+		
+		else if (stage == STEP2) begin
+			dcx = 1;
+			wrx = 1;
+			stage = STEP1;
+			pc = pc + 1;
+		end		
+		
+	end
+end
+
+
+endmodule

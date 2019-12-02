@@ -187,6 +187,9 @@ wire[7:0] ram1_data_out_a;
 wire[7:0] ram1_data_out_b;
 wire ram1_wren_a;
 wire ram1_wren_b;
+	
+wire[7:0] screen_adr;
+wire screen_data;
 
 chip8 cpu(
 	CLOCK_50,
@@ -196,7 +199,8 @@ chip8 cpu(
 	ram1_address_in_a,
 	ram1_data_in_a,
 	ram1_wren_a,
-	LED[7:0]
+	screen_adr,
+	screen_data
 );
 
 ram2 RAM1 (
@@ -207,23 +211,18 @@ ram2 RAM1 (
 	ram1_data_out_a
 );
 
-reg[0:64*32-1] screen;
-vma412 lcd (
-	CLOCK_50,
-	KEY[0],	
-	screen
-);
 
-/*ram1 RAM1 (
-	ram1_address_in_a,
-	ram1_address_in_b,
+/*vma412 lcd (
 	CLOCK_50,
-	ram1_data_in_a,
-	ram1_data_in_b,
-	ram1_wren_a,
-	ram1_wren_b,
-	ram1_data_out_a,
-	ram1_data_out_b
+	KEY[0],
+	GPIO_1[7:0],
+	GPIO_1[9],
+	GPIO_1[8],
+	GPIO_1[10],
+	GPIO_1[11],
+	GPIO_1[12],
+	screen_adr,
+	screen_data
 );*/
 
 
