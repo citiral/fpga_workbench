@@ -1,5 +1,5 @@
 Analysis & Synthesis report for fpga_workbench
-Sat Nov 30 19:03:21 2019
+Mon Dec 02 23:52:07 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -15,20 +15,27 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis RAM Summary
   9. Analysis & Synthesis IP Cores Summary
- 10. Registers Removed During Synthesis
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Source assignments for ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|altsyncram_kk92:altsyncram1
- 15. Parameter Settings for User Entity Instance: chip8:cpu
- 16. Parameter Settings for User Entity Instance: ram2:RAM1|altsyncram:altsyncram_component
- 17. Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_add_sub:Add3
- 18. altsyncram Parameter Settings by Entity Instance
- 19. Port Connectivity Checks: "chip8:cpu"
- 20. In-System Memory Content Editor Settings
- 21. Post-Synthesis Netlist Statistics for Top Partition
- 22. Elapsed Time Per Partition
- 23. Analysis & Synthesis Messages
+ 10. State Machine - |DE0_Nano|vma412:lcd|stage
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|altsyncram_kk92:altsyncram1
+ 16. Source assignments for ram1:VRAM|altsyncram:altsyncram_component|altsyncram_71g2:auto_generated
+ 17. Parameter Settings for User Entity Instance: chip8:cpu
+ 18. Parameter Settings for User Entity Instance: ram2:RAM1|altsyncram:altsyncram_component
+ 19. Parameter Settings for User Entity Instance: ram1:VRAM|altsyncram:altsyncram_component
+ 20. Parameter Settings for User Entity Instance: vma412:lcd
+ 21. Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Div0
+ 22. Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Mod1
+ 23. Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Mod0
+ 24. Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Div1
+ 25. altsyncram Parameter Settings by Entity Instance
+ 26. Port Connectivity Checks: "chip8:cpu"
+ 27. In-System Memory Content Editor Settings
+ 28. Post-Synthesis Netlist Statistics for Top Partition
+ 29. Elapsed Time Per Partition
+ 30. Analysis & Synthesis Messages
 
 
 
@@ -54,18 +61,18 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Nov 30 19:03:21 2019       ;
+; Analysis & Synthesis Status        ; Successful - Mon Dec 02 23:52:07 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; fpga_workbench                              ;
 ; Top-level Entity Name              ; DE0_Nano                                    ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 1,554                                       ;
-;     Total combinational functions  ; 1,422                                       ;
-;     Dedicated logic registers      ; 342                                         ;
-; Total registers                    ; 342                                         ;
+; Total logic elements               ; 9,526                                       ;
+;     Total combinational functions  ; 8,368                                       ;
+;     Dedicated logic registers      ; 3,625                                       ;
+; Total registers                    ; 3625                                        ;
 ; Total pins                         ; 154                                         ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 32,768                                      ;
+; Total memory bits                  ; 34,816                                      ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
 ; Total PLLs                         ; 0                                           ;
 +------------------------------------+---------------------------------------------+
@@ -170,8 +177,8 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processor 3            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.0%      ;
 +----------------------------+-------------+
 
@@ -182,8 +189,11 @@ refer to the applicable agreement for further details.
 ; File Name with User-Entered Path                                   ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                ; Library     ;
 +--------------------------------------------------------------------+-----------------+----------------------------------------------+---------------------------------------------------------------------------------------------+-------------+
 ; ../DE0_Nano.v                                                      ; yes             ; User Verilog HDL File                        ; D:/source/fpga_workbench/DE0_Nano.v                                                         ;             ;
+; ram1.v                                                             ; yes             ; User Wizard-Generated File                   ; D:/source/fpga_workbench/ram1.v                                                             ;             ;
 ; chip8.v                                                            ; yes             ; User Verilog HDL File                        ; D:/source/fpga_workbench/chip8.v                                                            ;             ;
 ; ram2.v                                                             ; yes             ; User Wizard-Generated File                   ; D:/source/fpga_workbench/ram2.v                                                             ;             ;
+; vma412.v                                                           ; yes             ; User Verilog HDL File                        ; D:/source/fpga_workbench/vma412.v                                                           ;             ;
+; vma412.mem                                                         ; yes             ; Auto-Found Unspecified File                  ; D:/source/fpga_workbench/vma412.mem                                                         ;             ;
 ; altsyncram.tdf                                                     ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf                       ;             ;
 ; stratix_ram_block.inc                                              ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/stratix_ram_block.inc                ;             ;
 ; lpm_mux.inc                                                        ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_mux.inc                          ;             ;
@@ -200,6 +210,7 @@ refer to the applicable agreement for further details.
 ; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd        ;             ;
 ; sld_jtag_endpoint_adapter_impl.sv                                  ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv    ;             ;
 ; sld_rom_sr.vhd                                                     ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_rom_sr.vhd                       ;             ;
+; db/altsyncram_71g2.tdf                                             ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/altsyncram_71g2.tdf                                             ;             ;
 ; sld_hub.vhd                                                        ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_hub.vhd                          ; altera_sld  ;
 ; db/ip/slde585f977/alt_sld_fab.v                                    ; yes             ; Encrypted Auto-Found Verilog HDL File        ; D:/source/fpga_workbench/db/ip/slde585f977/alt_sld_fab.v                                    ; alt_sld_fab ;
 ; db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab.v             ; yes             ; Encrypted Auto-Found Verilog HDL File        ; D:/source/fpga_workbench/db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab.v             ; alt_sld_fab ;
@@ -208,6 +219,21 @@ refer to the applicable agreement for further details.
 ; db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; yes             ; Encrypted Auto-Found VHDL File               ; D:/source/fpga_workbench/db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; alt_sld_fab ;
 ; db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; D:/source/fpga_workbench/db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; alt_sld_fab ;
 ; sld_jtag_hub.vhd                                                   ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_hub.vhd                     ;             ;
+; lpm_divide.tdf                                                     ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_divide.tdf                       ;             ;
+; abs_divider.inc                                                    ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/abs_divider.inc                      ;             ;
+; sign_div_unsign.inc                                                ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sign_div_unsign.inc                  ;             ;
+; db/lpm_divide_mhm.tdf                                              ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/lpm_divide_mhm.tdf                                              ;             ;
+; db/sign_div_unsign_ekh.tdf                                         ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/sign_div_unsign_ekh.tdf                                         ;             ;
+; db/alt_u_div_g4f.tdf                                               ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/alt_u_div_g4f.tdf                                               ;             ;
+; db/add_sub_7pc.tdf                                                 ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/add_sub_7pc.tdf                                                 ;             ;
+; db/add_sub_8pc.tdf                                                 ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/add_sub_8pc.tdf                                                 ;             ;
+; db/lpm_divide_m9m.tdf                                              ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/lpm_divide_m9m.tdf                                              ;             ;
+; db/sign_div_unsign_bkh.tdf                                         ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/sign_div_unsign_bkh.tdf                                         ;             ;
+; db/alt_u_div_a4f.tdf                                               ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/alt_u_div_a4f.tdf                                               ;             ;
+; db/lpm_divide_p9m.tdf                                              ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/lpm_divide_p9m.tdf                                              ;             ;
+; db/lpm_divide_ihm.tdf                                              ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/lpm_divide_ihm.tdf                                              ;             ;
+; db/sign_div_unsign_akh.tdf                                         ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/sign_div_unsign_akh.tdf                                         ;             ;
+; db/alt_u_div_84f.tdf                                               ; yes             ; Auto-Generated Megafunction                  ; D:/source/fpga_workbench/db/alt_u_div_84f.tdf                                               ;             ;
 ; lpm_add_sub.tdf                                                    ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/lpm_add_sub.tdf                      ;             ;
 ; addcore.inc                                                        ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/addcore.inc                          ;             ;
 ; look_add.inc                                                       ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/look_add.inc                         ;             ;
@@ -223,31 +249,31 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 1,554          ;
+; Estimated Total logic elements              ; 9,526          ;
 ;                                             ;                ;
-; Total combinational functions               ; 1422           ;
+; Total combinational functions               ; 8368           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 1002           ;
-;     -- 3 input functions                    ; 256            ;
-;     -- <=2 input functions                  ; 164            ;
+;     -- 4 input functions                    ; 4973           ;
+;     -- 3 input functions                    ; 940            ;
+;     -- <=2 input functions                  ; 2455           ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 1285           ;
-;     -- arithmetic mode                      ; 137            ;
+;     -- normal mode                          ; 8022           ;
+;     -- arithmetic mode                      ; 346            ;
 ;                                             ;                ;
-; Total registers                             ; 342            ;
-;     -- Dedicated logic registers            ; 342            ;
+; Total registers                             ; 3625           ;
+;     -- Dedicated logic registers            ; 3625           ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 154            ;
-; Total memory bits                           ; 32768          ;
+; Total memory bits                           ; 34816          ;
 ;                                             ;                ;
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 222            ;
-; Total fan-out                               ; 6934           ;
-; Average fan-out                             ; 3.17           ;
+; Maximum fan-out                             ; 3449           ;
+; Total fan-out                               ; 38405          ;
+; Average fan-out                             ; 3.08           ;
 +---------------------------------------------+----------------+
 
 
@@ -256,10 +282,27 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                  ; Entity Name                       ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
-; |DE0_Nano                                                                                                                               ; 1422 (1)            ; 342 (0)                   ; 32768       ; 0            ; 0       ; 0         ; 154  ; 0            ; |DE0_Nano                                                                                                                                                                                                                                                                                                                                            ; DE0_Nano                          ; work         ;
-;    |chip8:cpu|                                                                                                                          ; 1235 (1217)         ; 214 (214)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu                                                                                                                                                                                                                                                                                                                                  ; chip8                             ; work         ;
-;       |lpm_add_sub:Add3|                                                                                                                ; 18 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_add_sub:Add3                                                                                                                                                                                                                                                                                                                 ; lpm_add_sub                       ; work         ;
-;          |add_sub_dui:auto_generated|                                                                                                   ; 18 (18)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_add_sub:Add3|add_sub_dui:auto_generated                                                                                                                                                                                                                                                                                      ; add_sub_dui                       ; work         ;
+; |DE0_Nano                                                                                                                               ; 8368 (1)            ; 3625 (0)                  ; 34816       ; 0            ; 0       ; 0         ; 154  ; 0            ; |DE0_Nano                                                                                                                                                                                                                                                                                                                                            ; DE0_Nano                          ; work         ;
+;    |chip8:cpu|                                                                                                                          ; 7831 (7661)         ; 3364 (3364)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu                                                                                                                                                                                                                                                                                                                                  ; chip8                             ; work         ;
+;       |lpm_divide:Div0|                                                                                                                 ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div0                                                                                                                                                                                                                                                                                                                  ; lpm_divide                        ; work         ;
+;          |lpm_divide_mhm:auto_generated|                                                                                                ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div0|lpm_divide_mhm:auto_generated                                                                                                                                                                                                                                                                                    ; lpm_divide_mhm                    ; work         ;
+;             |sign_div_unsign_ekh:divider|                                                                                               ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider                                                                                                                                                                                                                                                        ; sign_div_unsign_ekh               ; work         ;
+;                |alt_u_div_g4f:divider|                                                                                                  ; 25 (25)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_g4f:divider                                                                                                                                                                                                                                  ; alt_u_div_g4f                     ; work         ;
+;       |lpm_divide:Div1|                                                                                                                 ; 46 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div1                                                                                                                                                                                                                                                                                                                  ; lpm_divide                        ; work         ;
+;          |lpm_divide_ihm:auto_generated|                                                                                                ; 46 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div1|lpm_divide_ihm:auto_generated                                                                                                                                                                                                                                                                                    ; lpm_divide_ihm                    ; work         ;
+;             |sign_div_unsign_akh:divider|                                                                                               ; 46 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div1|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider                                                                                                                                                                                                                                                        ; sign_div_unsign_akh               ; work         ;
+;                |alt_u_div_84f:divider|                                                                                                  ; 46 (46)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Div1|lpm_divide_ihm:auto_generated|sign_div_unsign_akh:divider|alt_u_div_84f:divider                                                                                                                                                                                                                                  ; alt_u_div_84f                     ; work         ;
+;       |lpm_divide:Mod0|                                                                                                                 ; 40 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod0                                                                                                                                                                                                                                                                                                                  ; lpm_divide                        ; work         ;
+;          |lpm_divide_p9m:auto_generated|                                                                                                ; 40 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod0|lpm_divide_p9m:auto_generated                                                                                                                                                                                                                                                                                    ; lpm_divide_p9m                    ; work         ;
+;             |sign_div_unsign_ekh:divider|                                                                                               ; 40 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod0|lpm_divide_p9m:auto_generated|sign_div_unsign_ekh:divider                                                                                                                                                                                                                                                        ; sign_div_unsign_ekh               ; work         ;
+;                |alt_u_div_g4f:divider|                                                                                                  ; 40 (40)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod0|lpm_divide_p9m:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_g4f:divider                                                                                                                                                                                                                                  ; alt_u_div_g4f                     ; work         ;
+;       |lpm_divide:Mod1|                                                                                                                 ; 59 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod1                                                                                                                                                                                                                                                                                                                  ; lpm_divide                        ; work         ;
+;          |lpm_divide_m9m:auto_generated|                                                                                                ; 59 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod1|lpm_divide_m9m:auto_generated                                                                                                                                                                                                                                                                                    ; lpm_divide_m9m                    ; work         ;
+;             |sign_div_unsign_bkh:divider|                                                                                               ; 59 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod1|lpm_divide_m9m:auto_generated|sign_div_unsign_bkh:divider                                                                                                                                                                                                                                                        ; sign_div_unsign_bkh               ; work         ;
+;                |alt_u_div_a4f:divider|                                                                                                  ; 59 (59)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|chip8:cpu|lpm_divide:Mod1|lpm_divide_m9m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_a4f:divider                                                                                                                                                                                                                                  ; alt_u_div_a4f                     ; work         ;
+;    |ram1:VRAM|                                                                                                                          ; 0 (0)               ; 0 (0)                     ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram1:VRAM                                                                                                                                                                                                                                                                                                                                  ; ram1                              ; work         ;
+;       |altsyncram:altsyncram_component|                                                                                                 ; 0 (0)               ; 0 (0)                     ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram1:VRAM|altsyncram:altsyncram_component                                                                                                                                                                                                                                                                                                  ; altsyncram                        ; work         ;
+;          |altsyncram_71g2:auto_generated|                                                                                               ; 0 (0)               ; 0 (0)                     ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram1:VRAM|altsyncram:altsyncram_component|altsyncram_71g2:auto_generated                                                                                                                                                                                                                                                                   ; altsyncram_71g2                   ; work         ;
 ;    |ram2:RAM1|                                                                                                                          ; 64 (0)              ; 41 (0)                    ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram2:RAM1                                                                                                                                                                                                                                                                                                                                  ; ram2                              ; work         ;
 ;       |altsyncram:altsyncram_component|                                                                                                 ; 64 (0)              ; 41 (0)                    ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component                                                                                                                                                                                                                                                                                                  ; altsyncram                        ; work         ;
 ;          |altsyncram_7aj1:auto_generated|                                                                                               ; 64 (0)              ; 41 (0)                    ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated                                                                                                                                                                                                                                                                   ; altsyncram_7aj1                   ; work         ;
@@ -274,6 +317,7 @@ refer to the applicable agreement for further details.
 ;                   |sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|                                                                        ; 120 (84)            ; 82 (54)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub                           ; sld_jtag_hub                      ; work         ;
 ;                      |sld_rom_sr:hub_info_reg|                                                                                          ; 18 (18)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg   ; sld_rom_sr                        ; work         ;
 ;                      |sld_shadow_jsm:shadow_jsm|                                                                                        ; 18 (18)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_shadow_jsm:shadow_jsm ; sld_shadow_jsm                    ; altera_sld   ;
+;    |vma412:lcd|                                                                                                                         ; 350 (350)           ; 133 (133)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |DE0_Nano|vma412:lcd                                                                                                                                                                                                                                                                                                                                 ; vma412                            ; work         ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -283,6 +327,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------+
 ; Name                                                                                                            ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF      ;
 +-----------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------+
+; ram1:VRAM|altsyncram:altsyncram_component|altsyncram_71g2:auto_generated|ALTSYNCRAM                             ; AUTO ; True Dual Port ; 32           ; 64           ; 32           ; 64           ; 2048  ; None     ;
 ; ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|altsyncram_kk92:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; 4096         ; 8            ; 4096         ; 8            ; 32768 ; ram1.hex ;
 +-----------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------+
 
@@ -293,6 +338,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance                                                                                                                                                                                                                                                               ; IP Include File ;
 +--------+--------------+---------+--------------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
 ; Altera ; RAM: 1-PORT  ; 18.1    ; N/A          ; N/A          ; |DE0_Nano|ram2:RAM1                                                                                                                                                                                                                                                           ; ram2.v          ;
+; Altera ; RAM: 2-PORT  ; 18.1    ; N/A          ; N/A          ; |DE0_Nano|ram1:VRAM                                                                                                                                                                                                                                                           ; ram1.v          ;
 ; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                 ;                 ;
 ; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                             ;                 ;
 ; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |DE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_presplit:presplit   ;                 ;
@@ -301,14 +347,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------+--------------+---------+--------------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
 
 
+Encoding Type:  One-Hot
++-------------------------------------------------------+
+; State Machine - |DE0_Nano|vma412:lcd|stage            ;
++-------------+-------------+-------------+-------------+
+; Name        ; stage.STEP1 ; stage.STEP3 ; stage.STEP2 ;
++-------------+-------------+-------------+-------------+
+; stage.STEP1 ; 0           ; 0           ; 0           ;
+; stage.STEP2 ; 1           ; 0           ; 1           ;
+; stage.STEP3 ; 1           ; 1           ; 0           ;
++-------------+-------------+-------------+-------------+
+
+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Registers Removed During Synthesis                                                                                                                                         ;
 +-----------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
 ; Register name                                                                                                                     ; Reason for Removal                     ;
 +-----------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
+; vma412:lcd|vram_address_out[4]                                                                                                    ; Merged with vma412:lcd|tmpy[4]         ;
+; vma412:lcd|vram_address_out[3]                                                                                                    ; Merged with vma412:lcd|tmpy[3]         ;
+; vma412:lcd|vram_address_out[2]                                                                                                    ; Merged with vma412:lcd|tmpy[2]         ;
+; vma412:lcd|vram_address_out[1]                                                                                                    ; Merged with vma412:lcd|tmpy[1]         ;
+; vma412:lcd|vram_address_out[0]                                                                                                    ; Merged with vma412:lcd|tmpy[0]         ;
 ; chip8:cpu|stage_delay[2]                                                                                                          ; Stuck at GND due to stuck port data_in ;
+; vma412:lcd|stage~9                                                                                                                ; Lost fanout                            ;
+; vma412:lcd|pc[9..15]                                                                                                              ; Lost fanout                            ;
 ; ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[3] ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 2                                                                                             ;                                        ;
+; Total Number of Removed Registers = 15                                                                                            ;                                        ;
 +-----------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
 
 
@@ -317,12 +382,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 342   ;
-; Number of registers using Synchronous Clear  ; 17    ;
-; Number of registers using Synchronous Load   ; 57    ;
-; Number of registers using Asynchronous Clear ; 250   ;
+; Total registers                              ; 3625  ;
+; Number of registers using Synchronous Clear  ; 93    ;
+; Number of registers using Synchronous Load   ; 98    ;
+; Number of registers using Asynchronous Clear ; 405   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 305   ;
+; Number of registers using Clock Enable       ; 3562  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -332,10 +397,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 ; Inverted Register                                                                                                                                                                                                                                                                                                               ; Fan out ;
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; chip8:cpu|pc[9]                                                                                                                                                                                                                                                                                                                 ; 5       ;
+; chip8:cpu|pc[1]                                                                                                                                                                                                                                                                                                                 ; 262     ;
+; chip8:cpu|pc[2]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; chip8:cpu|pc[3]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; chip8:cpu|pc[4]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; chip8:cpu|pc[5]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; chip8:cpu|pc[6]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; chip8:cpu|pc[7]                                                                                                                                                                                                                                                                                                                 ; 261     ;
+; vma412:lcd|csx                                                                                                                                                                                                                                                                                                                  ; 1       ;
+; vma412:lcd|dcx                                                                                                                                                                                                                                                                                                                  ; 1       ;
+; vma412:lcd|wrx                                                                                                                                                                                                                                                                                                                  ; 7       ;
+; chip8:cpu|pc[8]                                                                                                                                                                                                                                                                                                                 ; 260     ;
 ; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[2] ; 2       ;
 ; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[1] ; 3       ;
-; Total number of inverted registers = 3                                                                                                                                                                                                                                                                                          ;         ;
+; Total number of inverted registers = 13                                                                                                                                                                                                                                                                                         ;         ;
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
@@ -344,46 +419,61 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                                                                      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[3]                                     ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]                                                ;
-; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[0]                                                ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|word_counter[2] ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|register_adr[7]                                                                                                                                             ;
-; 6:1                ; 7 bits    ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|register_adr[0]                                                                                                                                             ;
-; 18:1               ; 8 bits    ; 96 LEs        ; 88 LEs               ; 8 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|ram_data_out[3]                                                                                                                                             ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|stage_delay[0]                                                                                                                                              ;
-; 7:1                ; 12 bits   ; 48 LEs        ; 36 LEs               ; 12 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|ram_address_out[9]                                                                                                                                          ;
-; 26:1               ; 4 bits    ; 68 LEs        ; 52 LEs               ; 16 LEs                 ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|WORD_SR[0]      ;
-; 9:1                ; 9 bits    ; 54 LEs        ; 18 LEs               ; 36 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|tmp[6]                                                                                                                                                      ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|delay_time[1]                                                                                                                                               ;
-; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|chip8_dtimer[2]                                                                                                                                             ;
-; 15:1               ; 9 bits    ; 90 LEs        ; 18 LEs               ; 72 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|pc[10]                                                                                                                                                      ;
-; 24:1               ; 3 bits    ; 48 LEs        ; 18 LEs               ; 30 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[15][5]                                                                                                                                       ;
-; 25:1               ; 2 bits    ; 32 LEs        ; 12 LEs               ; 20 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[15][1]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[14][1]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[13][5]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[12][5]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[11][5]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[10][3]                                                                                                                                       ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[9][1]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[8][2]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[7][6]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[6][3]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[5][3]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[4][5]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[3][1]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[2][4]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[1][1]                                                                                                                                        ;
-; 166:1              ; 6 bits    ; 660 LEs       ; 48 LEs               ; 612 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[0][4]                                                                                                                                        ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux20                                                                                                                                                       ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|tmpy[6]                                                                                                                                                    ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|data[4]                                                                                                                                                    ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |DE0_Nano|vma412:lcd|pc[14]                                                                                                                                                     ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|stack_size[6]                                                                                                                                               ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[1]                                     ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[6]                                                ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|instruction[8]                                                                                                                                             ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|instruction[5]                                                                                                                                             ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]                                                ;
+; 4:1                ; 11 bits   ; 22 LEs        ; 22 LEs               ; 0 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|register_adr[7]                                                                                                                                             ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|tmpx[5]                                                                                                                                                    ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|word_counter[1] ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|vram_address_out[3]                                                                                                                                         ;
+; 26:1               ; 4 bits    ; 68 LEs        ; 52 LEs               ; 16 LEs                 ; Yes        ; |DE0_Nano|ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr|WORD_SR[2]      ;
+; 9:1                ; 12 bits   ; 72 LEs        ; 36 LEs               ; 36 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|ram_address_out[8]                                                                                                                                          ;
+; 22:1               ; 3 bits    ; 42 LEs        ; 39 LEs               ; 3 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|ram_data_out[4]                                                                                                                                             ;
+; 22:1               ; 4 bits    ; 56 LEs        ; 52 LEs               ; 4 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|ram_data_out[3]                                                                                                                                             ;
+; 12:1               ; 9 bits    ; 72 LEs        ; 18 LEs               ; 54 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|tmp[2]                                                                                                                                                      ;
+; 17:1               ; 8 bits    ; 88 LEs        ; 88 LEs               ; 0 LEs                  ; Yes        ; |DE0_Nano|chip8:cpu|chip8_dtimer[0]                                                                                                                                             ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|stage_delay[1]                                                                                                                                              ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 9 LEs                ; 21 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|pc[10]                                                                                                                                                      ;
+; 15:1               ; 3 bits    ; 30 LEs        ; 12 LEs               ; 18 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|delay_time[1]                                                                                                                                               ;
+; 28:1               ; 3 bits    ; 54 LEs        ; 24 LEs               ; 30 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[15][5]                                                                                                                                       ;
+; 29:1               ; 2 bits    ; 38 LEs        ; 16 LEs               ; 22 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[15][2]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[14][4]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[13][4]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[12][4]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[11][2]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[10][2]                                                                                                                                       ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[9][4]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[8][1]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[7][6]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[6][2]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[5][3]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[4][1]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[3][4]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[2][1]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[1][1]                                                                                                                                        ;
+; 170:1              ; 6 bits    ; 678 LEs       ; 48 LEs               ; 630 LEs                ; Yes        ; |DE0_Nano|chip8:cpu|registers_data[0][5]                                                                                                                                        ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |DE0_Nano|vma412:lcd|csx                                                                                                                                                        ;
+; 16:1               ; 7 bits    ; 70 LEs        ; 21 LEs               ; 49 LEs                 ; Yes        ; |DE0_Nano|chip8:cpu|pc[5]                                                                                                                                                       ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux16                                                                                                                                                       ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux30                                                                                                                                                       ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|pc                                                                                                                                                          ;
-; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux0                                                                                                                                                        ;
-; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux8                                                                                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux17                                                                                                                                                       ;
+; 5:1                ; 75 bits   ; 225 LEs       ; 225 LEs              ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux52                                                                                                                                                       ;
+; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux2                                                                                                                                                        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux42                                                                                                                                                       ;
+; 5:1                ; 10 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux24                                                                                                                                                       ;
+; 16:1               ; 5 bits    ; 50 LEs        ; 50 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux145                                                                                                                                                      ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|pc                                                                                                                                                          ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux27                                                                                                                                                       ;
-; 5:1                ; 9 bits    ; 27 LEs        ; 27 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux15                                                                                                                                                       ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux17                                                                                                                                                       ;
-; 12:1               ; 15 bits   ; 120 LEs       ; 30 LEs               ; 90 LEs                 ; No         ; |DE0_Nano|chip8:cpu|registers_data                                                                                                                                              ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux49                                                                                                                                                       ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |DE0_Nano|chip8:cpu|Mux30                                                                                                                                                       ;
+; 13:1               ; 15 bits   ; 120 LEs       ; 30 LEs               ; 90 LEs                 ; No         ; |DE0_Nano|chip8:cpu|registers_data                                                                                                                                              ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; No         ; |DE0_Nano|vma412:lcd|stage                                                                                                                                                      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -394,6 +484,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------+--------------------+------+---------------------------------------------------------------+
 ; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                             ;
 +---------------------------------+--------------------+------+---------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------+
+; Source assignments for ram1:VRAM|altsyncram:altsyncram_component|altsyncram_71g2:auto_generated ;
++---------------------------------+--------------------+------+-----------------------------------+
+; Assignment                      ; Value              ; From ; To                                ;
++---------------------------------+--------------------+------+-----------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                 ;
++---------------------------------+--------------------+------+-----------------------------------+
 
 
 +--------------------------------------------------------+
@@ -472,31 +571,168 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_add_sub:Add3 ;
-+------------------------+--------------+-------------------------------------+
-; Parameter Name         ; Value        ; Type                                ;
-+------------------------+--------------+-------------------------------------+
-; LPM_WIDTH              ; 9            ; Untyped                             ;
-; LPM_REPRESENTATION     ; UNSIGNED     ; Untyped                             ;
-; LPM_DIRECTION          ; DEFAULT      ; Untyped                             ;
-; ONE_INPUT_IS_CONSTANT  ; NO           ; Untyped                             ;
-; LPM_PIPELINE           ; 0            ; Untyped                             ;
-; MAXIMIZE_SPEED         ; 5            ; Untyped                             ;
-; REGISTERED_AT_END      ; 0            ; Untyped                             ;
-; OPTIMIZE_FOR_SPEED     ; 5            ; Untyped                             ;
-; USE_CS_BUFFERS         ; 1            ; Untyped                             ;
-; CARRY_CHAIN            ; MANUAL       ; Untyped                             ;
-; CARRY_CHAIN_LENGTH     ; 48           ; CARRY_CHAIN_LENGTH                  ;
-; DEVICE_FAMILY          ; Cyclone IV E ; Untyped                             ;
-; USE_WYS                ; OFF          ; Untyped                             ;
-; STYLE                  ; FAST         ; Untyped                             ;
-; CBXI_PARAMETER         ; add_sub_dui  ; Untyped                             ;
-; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY                          ;
-; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY                        ;
-; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE                        ;
-; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE                      ;
-+------------------------+--------------+-------------------------------------+
++----------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ram1:VRAM|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+----------------------------+
+; Parameter Name                     ; Value                ; Type                       ;
++------------------------------------+----------------------+----------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                    ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                 ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY               ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE               ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE             ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                    ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT      ; Untyped                    ;
+; WIDTH_A                            ; 64                   ; Signed Integer             ;
+; WIDTHAD_A                          ; 5                    ; Signed Integer             ;
+; NUMWORDS_A                         ; 32                   ; Signed Integer             ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                    ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                    ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                    ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                    ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                    ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                    ;
+; WIDTH_B                            ; 64                   ; Signed Integer             ;
+; WIDTHAD_B                          ; 5                    ; Signed Integer             ;
+; NUMWORDS_B                         ; 32                   ; Signed Integer             ;
+; INDATA_REG_B                       ; CLOCK0               ; Untyped                    ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0               ; Untyped                    ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                    ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                    ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                    ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                    ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                    ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                    ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                    ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                    ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                    ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                    ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer             ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Signed Integer             ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                    ;
+; BYTE_SIZE                          ; 8                    ; Untyped                    ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                    ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA             ; Untyped                    ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                    ;
+; INIT_FILE                          ; UNUSED               ; Untyped                    ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                    ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                    ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                    ;
+; CLOCK_ENABLE_INPUT_B               ; BYPASS               ; Untyped                    ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                    ;
+; CLOCK_ENABLE_OUTPUT_B              ; BYPASS               ; Untyped                    ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                    ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                    ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                    ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                    ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                    ;
+; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                    ;
+; CBXI_PARAMETER                     ; altsyncram_71g2      ; Untyped                    ;
++------------------------------------+----------------------+----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: vma412:lcd ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; STEP1          ; 0     ; Signed Integer                 ;
+; STEP2          ; 1     ; Signed Integer                 ;
+; STEP3          ; 2     ; Signed Integer                 ;
++----------------+-------+--------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Div0 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                          ;
+; LPM_WIDTHD             ; 7              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_mhm ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Mod1 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                          ;
+; LPM_WIDTHD             ; 4              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_m9m ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Mod0 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                          ;
+; LPM_WIDTHD             ; 7              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_p9m ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: chip8:cpu|lpm_divide:Div1 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 7              ; Untyped                          ;
+; LPM_WIDTHD             ; 4              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_ihm ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -505,7 +741,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------------------+-------------------------------------------+
 ; Name                                      ; Value                                     ;
 +-------------------------------------------+-------------------------------------------+
-; Number of entity instances                ; 1                                         ;
+; Number of entity instances                ; 2                                         ;
 ; Entity Instance                           ; ram2:RAM1|altsyncram:altsyncram_component ;
 ;     -- OPERATION_MODE                     ; SINGLE_PORT                               ;
 ;     -- WIDTH_A                            ; 8                                         ;
@@ -517,21 +753,27 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     -- OUTDATA_REG_B                      ; UNREGISTERED                              ;
 ;     -- RAM_BLOCK_TYPE                     ; AUTO                                      ;
 ;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                 ;
+; Entity Instance                           ; ram1:VRAM|altsyncram:altsyncram_component ;
+;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                           ;
+;     -- WIDTH_A                            ; 64                                        ;
+;     -- NUMWORDS_A                         ; 32                                        ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                              ;
+;     -- WIDTH_B                            ; 64                                        ;
+;     -- NUMWORDS_B                         ; 32                                        ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                    ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                              ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                      ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                  ;
 +-------------------------------------------+-------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "chip8:cpu"                                                                                                                                                       ;
-+--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port               ; Type   ; Severity ; Details                                                                                                                                            ;
-+--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
-; input_in           ; Input  ; Warning  ; Input port expression (1 bits) is smaller than the input port (16 bits) it drives.  Extra input bit(s) "input_in[15..1]" will be connected to GND. ;
-; screen_address_out ; Output ; Warning  ; Output or bidir port (12 bits) is wider than the port expression (8 bits) it drives; bit(s) "screen_address_out[11..8]" have no fanouts            ;
-; screen_address_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                ;
-; screen_data_out    ; Output ; Warning  ; Output or bidir port (8 bits) is wider than the port expression (1 bits) it drives; bit(s) "screen_data_out[7..1]" have no fanouts                 ;
-; screen_data_out    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                ;
-; screen_write       ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                           ;
-+--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "chip8:cpu"                                                                                                                                            ;
++----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port     ; Type  ; Severity ; Details                                                                                                                                            ;
++----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; input_in ; Input ; Warning  ; Input port expression (1 bits) is smaller than the input port (16 bits) it drives.  Extra input bit(s) "input_in[15..1]" will be connected to GND. ;
++----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------+
@@ -549,27 +791,30 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 181                         ;
-; cycloneiii_ff         ; 255                         ;
-;     CLR               ; 10                          ;
-;     ENA               ; 34                          ;
-;     ENA CLR           ; 159                         ;
-;     ENA CLR SLD       ; 47                          ;
+; cycloneiii_ff         ; 3538                        ;
+;     CLR               ; 32                          ;
+;     CLR SLD           ; 4                           ;
+;     ENA               ; 3162                        ;
+;     ENA CLR           ; 179                         ;
+;     ENA CLR SCLR      ; 72                          ;
+;     ENA CLR SCLR SLD  ; 4                           ;
+;     ENA CLR SLD       ; 80                          ;
 ;     ENA SCLR          ; 5                           ;
 ; cycloneiii_io_obuf    ; 98                          ;
-; cycloneiii_lcell_comb ; 1300                        ;
-;     arith             ; 129                         ;
-;         2 data inputs ; 72                          ;
-;         3 data inputs ; 57                          ;
-;     normal            ; 1171                        ;
-;         0 data inputs ; 3                           ;
-;         1 data inputs ; 10                          ;
-;         2 data inputs ; 43                          ;
-;         3 data inputs ; 168                         ;
-;         4 data inputs ; 947                         ;
-; cycloneiii_ram_block  ; 8                           ;
+; cycloneiii_lcell_comb ; 8253                        ;
+;     arith             ; 338                         ;
+;         2 data inputs ; 194                         ;
+;         3 data inputs ; 144                         ;
+;     normal            ; 7915                        ;
+;         0 data inputs ; 23                          ;
+;         1 data inputs ; 2073                        ;
+;         2 data inputs ; 136                         ;
+;         3 data inputs ; 765                         ;
+;         4 data inputs ; 4918                        ;
+; cycloneiii_ram_block  ; 72                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 13.00                       ;
-; Average LUT depth     ; 7.00                        ;
+; Max LUT depth         ; 86.20                       ;
+; Average LUT depth     ; 21.10                       ;
 +-----------------------+-----------------------------+
 
 
@@ -578,7 +823,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:51     ;
+; Top            ; 00:00:46     ;
 +----------------+--------------+
 
 
@@ -588,7 +833,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Nov 30 19:01:49 2019
+    Info: Processing started: Mon Dec 02 23:50:55 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off fpga_workbench -c fpga_workbench
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -602,13 +847,9 @@ Info (12021): Found 1 design units, including 1 entities, in source file chip8_t
     Info (12023): Found entity 1: chip8_tb File: D:/source/fpga_workbench/chip8_tb.v Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file ram2.v
     Info (12023): Found entity 1: ram2 File: D:/source/fpga_workbench/ram2.v Line: 39
-Warning (10229): Verilog HDL Expression warning at vma412.v(67): truncated literal to match 12 bits File: D:/source/fpga_workbench/vma412.v Line: 67
 Info (12021): Found 1 design units, including 1 entities, in source file vma412.v
     Info (12023): Found entity 1: vma412 File: D:/source/fpga_workbench/vma412.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file vma412_tb.v
-    Info (12023): Found entity 1: vma412_tb File: D:/source/fpga_workbench/vma412_tb.v Line: 4
 Info (12127): Elaborating entity "DE0_Nano" for the top level hierarchy
-Warning (10034): Output port "LED" at DE0_Nano.v(94) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
 Warning (10034): Output port "DRAM_ADDR" at DE0_Nano.v(112) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 112
 Warning (10034): Output port "DRAM_BA" at DE0_Nano.v(113) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 113
 Warning (10034): Output port "DRAM_DQM" at DE0_Nano.v(119) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 119
@@ -626,43 +867,42 @@ Warning (10034): Output port "I2C_SCLK" at DE0_Nano.v(138) has no driver File: D
 Warning (10034): Output port "ADC_CS_N" at DE0_Nano.v(145) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 145
 Warning (10034): Output port "ADC_SADDR" at DE0_Nano.v(146) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 146
 Warning (10034): Output port "ADC_SCLK" at DE0_Nano.v(147) has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 147
-Info (12128): Elaborating entity "chip8" for hierarchy "chip8:cpu" File: D:/source/fpga_workbench/DE0_Nano.v Line: 204
-Warning (10036): Verilog HDL or VHDL warning at chip8.v(25): object "chip8_stimer" assigned a value but never read File: D:/source/fpga_workbench/chip8.v Line: 25
-Warning (10036): Verilog HDL or VHDL warning at chip8.v(44): object "stack" assigned a value but never read File: D:/source/fpga_workbench/chip8.v Line: 44
-Warning (10230): Verilog HDL assignment warning at chip8.v(79): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 79
-Warning (10230): Verilog HDL assignment warning at chip8.v(87): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 87
-Warning (10230): Verilog HDL assignment warning at chip8.v(57): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 57
-Warning (10230): Verilog HDL assignment warning at chip8.v(104): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 104
-Warning (10230): Verilog HDL assignment warning at chip8.v(118): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 118
-Warning (10230): Verilog HDL assignment warning at chip8.v(119): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 119
-Warning (10230): Verilog HDL assignment warning at chip8.v(125): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 125
-Warning (10230): Verilog HDL assignment warning at chip8.v(126): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 126
-Warning (10230): Verilog HDL assignment warning at chip8.v(132): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 132
-Warning (10230): Verilog HDL assignment warning at chip8.v(133): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 133
-Warning (10230): Verilog HDL assignment warning at chip8.v(143): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 143
-Warning (10230): Verilog HDL assignment warning at chip8.v(144): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 144
-Warning (10230): Verilog HDL assignment warning at chip8.v(154): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 154
-Warning (10230): Verilog HDL assignment warning at chip8.v(155): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 155
-Warning (10230): Verilog HDL assignment warning at chip8.v(165): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 165
-Warning (10230): Verilog HDL assignment warning at chip8.v(166): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 166
-Warning (10230): Verilog HDL assignment warning at chip8.v(172): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 172
-Warning (10230): Verilog HDL assignment warning at chip8.v(173): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 173
-Warning (10230): Verilog HDL assignment warning at chip8.v(179): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 179
-Warning (10230): Verilog HDL assignment warning at chip8.v(180): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 180
-Warning (10230): Verilog HDL assignment warning at chip8.v(186): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 186
-Warning (10230): Verilog HDL assignment warning at chip8.v(187): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 187
-Warning (10230): Verilog HDL assignment warning at chip8.v(195): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 195
-Warning (10230): Verilog HDL assignment warning at chip8.v(196): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 196
-Warning (10230): Verilog HDL assignment warning at chip8.v(204): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 204
-Warning (10230): Verilog HDL assignment warning at chip8.v(205): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 205
-Warning (10230): Verilog HDL assignment warning at chip8.v(211): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 211
-Warning (10230): Verilog HDL assignment warning at chip8.v(217): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 217
-Warning (10230): Verilog HDL assignment warning at chip8.v(223): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 223
-Warning (10230): Verilog HDL assignment warning at chip8.v(225): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 225
-Warning (10230): Verilog HDL assignment warning at chip8.v(231): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 231
-Warning (10230): Verilog HDL assignment warning at chip8.v(233): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 233
-Warning (10230): Verilog HDL assignment warning at chip8.v(239): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 239
-Warning (10230): Verilog HDL assignment warning at chip8.v(241): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 241
+Info (12128): Elaborating entity "chip8" for hierarchy "chip8:cpu" File: D:/source/fpga_workbench/DE0_Nano.v Line: 212
+Warning (10230): Verilog HDL assignment warning at chip8.v(28): truncated value with size 12 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 28
+Warning (10230): Verilog HDL assignment warning at chip8.v(83): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 83
+Warning (10230): Verilog HDL assignment warning at chip8.v(87): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 87
+Warning (10230): Verilog HDL assignment warning at chip8.v(89): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 89
+Warning (10230): Verilog HDL assignment warning at chip8.v(93): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 93
+Warning (10230): Verilog HDL assignment warning at chip8.v(55): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 55
+Warning (10230): Verilog HDL assignment warning at chip8.v(110): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 110
+Warning (10230): Verilog HDL assignment warning at chip8.v(124): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 124
+Warning (10230): Verilog HDL assignment warning at chip8.v(125): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 125
+Warning (10230): Verilog HDL assignment warning at chip8.v(131): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 131
+Warning (10230): Verilog HDL assignment warning at chip8.v(132): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 132
+Warning (10230): Verilog HDL assignment warning at chip8.v(138): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 138
+Warning (10230): Verilog HDL assignment warning at chip8.v(139): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 139
+Warning (10230): Verilog HDL assignment warning at chip8.v(149): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 149
+Warning (10230): Verilog HDL assignment warning at chip8.v(150): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 150
+Warning (10230): Verilog HDL assignment warning at chip8.v(162): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 162
+Warning (10230): Verilog HDL assignment warning at chip8.v(163): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 163
+Warning (10230): Verilog HDL assignment warning at chip8.v(175): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 175
+Warning (10230): Verilog HDL assignment warning at chip8.v(176): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 176
+Warning (10230): Verilog HDL assignment warning at chip8.v(182): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 182
+Warning (10230): Verilog HDL assignment warning at chip8.v(183): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 183
+Warning (10230): Verilog HDL assignment warning at chip8.v(189): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 189
+Warning (10230): Verilog HDL assignment warning at chip8.v(190): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 190
+Warning (10230): Verilog HDL assignment warning at chip8.v(196): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 196
+Warning (10230): Verilog HDL assignment warning at chip8.v(197): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 197
+Warning (10230): Verilog HDL assignment warning at chip8.v(205): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 205
+Warning (10230): Verilog HDL assignment warning at chip8.v(206): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 206
+Warning (10230): Verilog HDL assignment warning at chip8.v(214): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 214
+Warning (10230): Verilog HDL assignment warning at chip8.v(215): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 215
+Warning (10230): Verilog HDL assignment warning at chip8.v(221): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 221
+Warning (10230): Verilog HDL assignment warning at chip8.v(227): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 227
+Warning (10230): Verilog HDL assignment warning at chip8.v(233): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 233
+Warning (10230): Verilog HDL assignment warning at chip8.v(235): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 235
+Warning (10230): Verilog HDL assignment warning at chip8.v(240): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 240
+Warning (10230): Verilog HDL assignment warning at chip8.v(241): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 241
 Warning (10230): Verilog HDL assignment warning at chip8.v(242): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 242
 Warning (10230): Verilog HDL assignment warning at chip8.v(248): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 248
 Warning (10230): Verilog HDL assignment warning at chip8.v(250): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 250
@@ -674,59 +914,68 @@ Warning (10230): Verilog HDL assignment warning at chip8.v(266): truncated value
 Warning (10230): Verilog HDL assignment warning at chip8.v(268): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 268
 Warning (10230): Verilog HDL assignment warning at chip8.v(269): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 269
 Warning (10230): Verilog HDL assignment warning at chip8.v(275): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 275
-Warning (10230): Verilog HDL assignment warning at chip8.v(276): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 276
-Warning (10230): Verilog HDL assignment warning at chip8.v(282): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 282
-Warning (10230): Verilog HDL assignment warning at chip8.v(283): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 283
-Warning (10230): Verilog HDL assignment warning at chip8.v(289): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 289
-Warning (10230): Verilog HDL assignment warning at chip8.v(290): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 290
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(298): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 298
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(299): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 299
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(300): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 300
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(301): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 301
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(302): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 302
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(303): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 303
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(304): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 304
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(305): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 305
-Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(306): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 306
+Warning (10230): Verilog HDL assignment warning at chip8.v(277): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 277
+Warning (10230): Verilog HDL assignment warning at chip8.v(278): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 278
+Warning (10230): Verilog HDL assignment warning at chip8.v(284): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 284
+Warning (10230): Verilog HDL assignment warning at chip8.v(285): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 285
+Warning (10230): Verilog HDL assignment warning at chip8.v(291): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 291
+Warning (10230): Verilog HDL assignment warning at chip8.v(292): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 292
+Warning (10230): Verilog HDL assignment warning at chip8.v(298): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 298
+Warning (10230): Verilog HDL assignment warning at chip8.v(299): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 299
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(307): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 307
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(308): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 308
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(309): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 309
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(310): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 310
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(311): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 311
 Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(312): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 312
-Warning (10763): Verilog HDL warning at chip8.v(296): case statement has overlapping case item expressions with non-constant or don't care bits - unable to check case statement for completeness File: D:/source/fpga_workbench/chip8.v Line: 296
-Warning (10230): Verilog HDL assignment warning at chip8.v(314): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 314
-Warning (10230): Verilog HDL assignment warning at chip8.v(315): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 315
-Warning (10230): Verilog HDL assignment warning at chip8.v(322): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 322
-Warning (10230): Verilog HDL assignment warning at chip8.v(324): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 324
-Warning (10230): Verilog HDL assignment warning at chip8.v(325): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 325
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(313): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 313
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(314): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 314
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(315): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 315
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(316): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 316
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(317): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 317
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(318): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 318
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(319): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 319
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(320): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 320
+Warning (10935): Verilog HDL Casex/Casez warning at chip8.v(321): casex/casez item expression overlaps with a previous casex/casez item expression File: D:/source/fpga_workbench/chip8.v Line: 321
+Warning (10763): Verilog HDL warning at chip8.v(305): case statement has overlapping case item expressions with non-constant or don't care bits - unable to check case statement for completeness File: D:/source/fpga_workbench/chip8.v Line: 305
+Warning (10230): Verilog HDL assignment warning at chip8.v(323): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 323
+Warning (10230): Verilog HDL assignment warning at chip8.v(324): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 324
 Warning (10230): Verilog HDL assignment warning at chip8.v(331): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 331
 Warning (10230): Verilog HDL assignment warning at chip8.v(333): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 333
 Warning (10230): Verilog HDL assignment warning at chip8.v(334): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 334
-Warning (10230): Verilog HDL assignment warning at chip8.v(341): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 341
-Warning (10230): Verilog HDL assignment warning at chip8.v(342): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 342
-Warning (10230): Verilog HDL assignment warning at chip8.v(348): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 348
-Warning (10230): Verilog HDL assignment warning at chip8.v(349): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 349
-Warning (10230): Verilog HDL assignment warning at chip8.v(363): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 363
-Warning (10230): Verilog HDL assignment warning at chip8.v(364): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 364
-Warning (10230): Verilog HDL assignment warning at chip8.v(365): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 365
-Warning (10230): Verilog HDL assignment warning at chip8.v(372): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 372
-Warning (10230): Verilog HDL assignment warning at chip8.v(399): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 399
-Warning (10230): Verilog HDL assignment warning at chip8.v(412): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 412
-Warning (10230): Verilog HDL assignment warning at chip8.v(418): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 418
-Warning (10230): Verilog HDL assignment warning at chip8.v(419): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 419
-Warning (10230): Verilog HDL assignment warning at chip8.v(427): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 427
-Warning (10230): Verilog HDL assignment warning at chip8.v(428): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 428
-Warning (10230): Verilog HDL assignment warning at chip8.v(432): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 432
-Warning (10230): Verilog HDL assignment warning at chip8.v(433): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 433
-Warning (10230): Verilog HDL assignment warning at chip8.v(450): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 450
-Warning (10230): Verilog HDL assignment warning at chip8.v(453): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 453
-Warning (10230): Verilog HDL assignment warning at chip8.v(454): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 454
-Warning (10240): Verilog HDL Always Construct warning at chip8.v(63): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct File: D:/source/fpga_workbench/chip8.v Line: 63
-Warning (10034): Output port "screen_address_out" at chip8.v(13) has no driver File: D:/source/fpga_workbench/chip8.v Line: 13
-Warning (10034): Output port "screen_data_out" at chip8.v(14) has no driver File: D:/source/fpga_workbench/chip8.v Line: 14
-Warning (10034): Output port "screen_write" at chip8.v(16) has no driver File: D:/source/fpga_workbench/chip8.v Line: 16
-Info (12128): Elaborating entity "ram2" for hierarchy "ram2:RAM1" File: D:/source/fpga_workbench/DE0_Nano.v Line: 212
+Warning (10230): Verilog HDL assignment warning at chip8.v(340): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 340
+Warning (10230): Verilog HDL assignment warning at chip8.v(342): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 342
+Warning (10230): Verilog HDL assignment warning at chip8.v(343): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 343
+Warning (10230): Verilog HDL assignment warning at chip8.v(350): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 350
+Warning (10230): Verilog HDL assignment warning at chip8.v(351): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 351
+Warning (10230): Verilog HDL assignment warning at chip8.v(357): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 357
+Warning (10230): Verilog HDL assignment warning at chip8.v(358): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 358
+Warning (10230): Verilog HDL assignment warning at chip8.v(367): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 367
+Warning (10230): Verilog HDL assignment warning at chip8.v(373): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 373
+Warning (10230): Verilog HDL assignment warning at chip8.v(374): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 374
+Warning (10230): Verilog HDL assignment warning at chip8.v(375): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 375
+Warning (10230): Verilog HDL assignment warning at chip8.v(382): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 382
+Warning (10230): Verilog HDL assignment warning at chip8.v(398): truncated value with size 8 to match size of target (5) File: D:/source/fpga_workbench/chip8.v Line: 398
+Warning (10230): Verilog HDL assignment warning at chip8.v(408): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 408
+Warning (10230): Verilog HDL assignment warning at chip8.v(419): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 419
+Warning (10230): Verilog HDL assignment warning at chip8.v(430): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 430
+Warning (10230): Verilog HDL assignment warning at chip8.v(431): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 431
+Warning (10230): Verilog HDL assignment warning at chip8.v(434): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 434
+Warning (10230): Verilog HDL assignment warning at chip8.v(435): truncated value with size 9 to match size of target (5) File: D:/source/fpga_workbench/chip8.v Line: 435
+Warning (10230): Verilog HDL assignment warning at chip8.v(440): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 440
+Warning (10230): Verilog HDL assignment warning at chip8.v(444): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 444
+Warning (10230): Verilog HDL assignment warning at chip8.v(447): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/chip8.v Line: 447
+Warning (10230): Verilog HDL assignment warning at chip8.v(448): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 448
+Warning (10230): Verilog HDL assignment warning at chip8.v(460): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 460
+Warning (10230): Verilog HDL assignment warning at chip8.v(468): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 468
+Warning (10230): Verilog HDL assignment warning at chip8.v(476): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 476
+Warning (10230): Verilog HDL assignment warning at chip8.v(482): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 482
+Warning (10230): Verilog HDL assignment warning at chip8.v(483): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 483
+Warning (10230): Verilog HDL assignment warning at chip8.v(509): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/chip8.v Line: 509
+Warning (10230): Verilog HDL assignment warning at chip8.v(510): truncated value with size 32 to match size of target (3) File: D:/source/fpga_workbench/chip8.v Line: 510
+Warning (10230): Verilog HDL assignment warning at chip8.v(514): truncated value with size 32 to match size of target (9) File: D:/source/fpga_workbench/chip8.v Line: 514
+Warning (10230): Verilog HDL assignment warning at chip8.v(517): truncated value with size 9 to match size of target (5) File: D:/source/fpga_workbench/chip8.v Line: 517
+Info (12128): Elaborating entity "ram2" for hierarchy "ram2:RAM1" File: D:/source/fpga_workbench/DE0_Nano.v Line: 220
 Info (12128): Elaborating entity "altsyncram" for hierarchy "ram2:RAM1|altsyncram:altsyncram_component" File: D:/source/fpga_workbench/ram2.v Line: 85
 Info (12130): Elaborated megafunction instantiation "ram2:RAM1|altsyncram:altsyncram_component" File: D:/source/fpga_workbench/ram2.v Line: 85
 Info (12133): Instantiated megafunction "ram2:RAM1|altsyncram:altsyncram_component" with the following parameter: File: D:/source/fpga_workbench/ram2.v Line: 85
@@ -776,8 +1025,60 @@ Info (12133): Instantiated megafunction "ram2:RAM1|altsyncram:altsyncram_compone
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 302
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
 Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "ram2:RAM1|altsyncram:altsyncram_component|altsyncram_7aj1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:name_gen:info_rom_sr" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_mod_ram_rom.vhd Line: 828
+Info (12128): Elaborating entity "ram1" for hierarchy "ram1:VRAM" File: D:/source/fpga_workbench/DE0_Nano.v Line: 232
+Info (12128): Elaborating entity "altsyncram" for hierarchy "ram1:VRAM|altsyncram:altsyncram_component" File: D:/source/fpga_workbench/ram1.v Line: 97
+Info (12130): Elaborated megafunction instantiation "ram1:VRAM|altsyncram:altsyncram_component" File: D:/source/fpga_workbench/ram1.v Line: 97
+Info (12133): Instantiated megafunction "ram1:VRAM|altsyncram:altsyncram_component" with the following parameter: File: D:/source/fpga_workbench/ram1.v Line: 97
+    Info (12134): Parameter "address_reg_b" = "CLOCK0"
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_input_b" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_b" = "BYPASS"
+    Info (12134): Parameter "indata_reg_b" = "CLOCK0"
+    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+    Info (12134): Parameter "numwords_a" = "32"
+    Info (12134): Parameter "numwords_b" = "32"
+    Info (12134): Parameter "operation_mode" = "BIDIR_DUAL_PORT"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_aclr_b" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info (12134): Parameter "outdata_reg_b" = "UNREGISTERED"
+    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
+    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_a" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_b" = "NEW_DATA_NO_NBE_READ"
+    Info (12134): Parameter "widthad_a" = "5"
+    Info (12134): Parameter "widthad_b" = "5"
+    Info (12134): Parameter "width_a" = "64"
+    Info (12134): Parameter "width_b" = "64"
+    Info (12134): Parameter "width_byteena_a" = "1"
+    Info (12134): Parameter "width_byteena_b" = "1"
+    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK0"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_71g2.tdf
+    Info (12023): Found entity 1: altsyncram_71g2 File: D:/source/fpga_workbench/db/altsyncram_71g2.tdf Line: 27
+Info (12128): Elaborating entity "altsyncram_71g2" for hierarchy "ram1:VRAM|altsyncram:altsyncram_component|altsyncram_71g2:auto_generated" File: c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Info (12128): Elaborating entity "vma412" for hierarchy "vma412:lcd" File: D:/source/fpga_workbench/DE0_Nano.v Line: 246
+Warning (10850): Verilog HDL warning at vma412.v(35): number of words (101) in memory file does not match the number of elements in the address range [0:511] File: D:/source/fpga_workbench/vma412.v Line: 35
+Warning (10230): Verilog HDL assignment warning at vma412.v(43): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/vma412.v Line: 43
+Warning (10230): Verilog HDL assignment warning at vma412.v(74): truncated value with size 17 to match size of target (16) File: D:/source/fpga_workbench/vma412.v Line: 74
+Warning (10230): Verilog HDL assignment warning at vma412.v(140): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/vma412.v Line: 140
+Warning (10230): Verilog HDL assignment warning at vma412.v(143): truncated value with size 32 to match size of target (8) File: D:/source/fpga_workbench/vma412.v Line: 143
+Warning (10230): Verilog HDL assignment warning at vma412.v(144): truncated value with size 8 to match size of target (5) File: D:/source/fpga_workbench/vma412.v Line: 144
+Warning (10230): Verilog HDL assignment warning at vma412.v(152): truncated value with size 32 to match size of target (16) File: D:/source/fpga_workbench/vma412.v Line: 152
+Warning (10230): Verilog HDL assignment warning at vma412.v(155): truncated value with size 32 to match size of target (12) File: D:/source/fpga_workbench/vma412.v Line: 155
+Warning (10230): Verilog HDL assignment warning at vma412.v(163): truncated value with size 32 to match size of target (16) File: D:/source/fpga_workbench/vma412.v Line: 163
+Warning (10230): Verilog HDL assignment warning at vma412.v(177): truncated value with size 32 to match size of target (16) File: D:/source/fpga_workbench/vma412.v Line: 177
+Warning (10230): Verilog HDL assignment warning at vma412.v(188): truncated value with size 32 to match size of target (16) File: D:/source/fpga_workbench/vma412.v Line: 188
+Warning (10240): Verilog HDL Always Construct warning at vma412.v(51): inferring latch(es) for variable "rdx", which holds its previous value in one or more paths through the always construct File: D:/source/fpga_workbench/vma412.v Line: 51
+Warning (10240): Verilog HDL Always Construct warning at vma412.v(51): inferring latch(es) for variable "vram_write", which holds its previous value in one or more paths through the always construct File: D:/source/fpga_workbench/vma412.v Line: 51
+Warning (10030): Net "rom.data_a" at vma412.v(20) has no driver or initial value, using a default initial value '0' File: D:/source/fpga_workbench/vma412.v Line: 20
+Warning (10030): Net "rom.waddr_a" at vma412.v(20) has no driver or initial value, using a default initial value '0' File: D:/source/fpga_workbench/vma412.v Line: 20
+Warning (10030): Net "rom.we_a" at vma412.v(20) has no driver or initial value, using a default initial value '0' File: D:/source/fpga_workbench/vma412.v Line: 20
+Info (10041): Inferred latch for "vram_write" at vma412.v(69) File: D:/source/fpga_workbench/vma412.v Line: 69
+Info (10041): Inferred latch for "rdx" at vma412.v(69) File: D:/source/fpga_workbench/vma412.v Line: 69
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2019.11.30.19:02:17 Progress: Loading slde585f977/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2019.12.02.23:51:11 Progress: Loading slde585f977/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -800,17 +1101,76 @@ Info (12021): Found 2 design units, including 1 entities, in source file db/ip/s
     Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: D:/source/fpga_workbench/db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_splitter.sv
     Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: D:/source/fpga_workbench/db/ip/slde585f977/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
-Info (278001): Inferred 1 megafunctions from design logic
-    Info (278002): Inferred adder/subtractor megafunction ("lpm_add_sub") from the following logic: "chip8:cpu|Add3" File: D:/source/fpga_workbench/chip8.v Line: 140
-Info (12130): Elaborated megafunction instantiation "chip8:cpu|lpm_add_sub:Add3" File: D:/source/fpga_workbench/chip8.v Line: 140
-Info (12133): Instantiated megafunction "chip8:cpu|lpm_add_sub:Add3" with the following parameter: File: D:/source/fpga_workbench/chip8.v Line: 140
-    Info (12134): Parameter "LPM_WIDTH" = "9"
-    Info (12134): Parameter "LPM_DIRECTION" = "DEFAULT"
-    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "ONE_INPUT_IS_CONSTANT" = "NO"
-Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_dui.tdf
-    Info (12023): Found entity 1: add_sub_dui File: D:/source/fpga_workbench/db/add_sub_dui.tdf Line: 22
+Info (276014): Found 1 instances of uninferred RAM logic
+    Info (276007): RAM logic "chip8:cpu|stack" is uninferred due to asynchronous read logic File: D:/source/fpga_workbench/chip8.v Line: 47
+Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "D:/source/fpga_workbench/db/fpga_workbench.ram0_vma412_f3b0436d.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Info (278001): Inferred 4 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "chip8:cpu|Div0" File: D:/source/fpga_workbench/chip8.v Line: 408
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "chip8:cpu|Mod1" File: D:/source/fpga_workbench/chip8.v Line: 447
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "chip8:cpu|Mod0" File: D:/source/fpga_workbench/chip8.v Line: 444
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "chip8:cpu|Div1" File: D:/source/fpga_workbench/chip8.v Line: 444
+Info (12130): Elaborated megafunction instantiation "chip8:cpu|lpm_divide:Div0" File: D:/source/fpga_workbench/chip8.v Line: 408
+Info (12133): Instantiated megafunction "chip8:cpu|lpm_divide:Div0" with the following parameter: File: D:/source/fpga_workbench/chip8.v Line: 408
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_mhm.tdf
+    Info (12023): Found entity 1: lpm_divide_mhm File: D:/source/fpga_workbench/db/lpm_divide_mhm.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ekh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_ekh File: D:/source/fpga_workbench/db/sign_div_unsign_ekh.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_g4f.tdf
+    Info (12023): Found entity 1: alt_u_div_g4f File: D:/source/fpga_workbench/db/alt_u_div_g4f.tdf Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: D:/source/fpga_workbench/db/add_sub_7pc.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: D:/source/fpga_workbench/db/add_sub_8pc.tdf Line: 22
+Info (12130): Elaborated megafunction instantiation "chip8:cpu|lpm_divide:Mod1" File: D:/source/fpga_workbench/chip8.v Line: 447
+Info (12133): Instantiated megafunction "chip8:cpu|lpm_divide:Mod1" with the following parameter: File: D:/source/fpga_workbench/chip8.v Line: 447
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_m9m.tdf
+    Info (12023): Found entity 1: lpm_divide_m9m File: D:/source/fpga_workbench/db/lpm_divide_m9m.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_bkh File: D:/source/fpga_workbench/db/sign_div_unsign_bkh.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_a4f.tdf
+    Info (12023): Found entity 1: alt_u_div_a4f File: D:/source/fpga_workbench/db/alt_u_div_a4f.tdf Line: 26
+Info (12130): Elaborated megafunction instantiation "chip8:cpu|lpm_divide:Mod0" File: D:/source/fpga_workbench/chip8.v Line: 444
+Info (12133): Instantiated megafunction "chip8:cpu|lpm_divide:Mod0" with the following parameter: File: D:/source/fpga_workbench/chip8.v Line: 444
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_p9m.tdf
+    Info (12023): Found entity 1: lpm_divide_p9m File: D:/source/fpga_workbench/db/lpm_divide_p9m.tdf Line: 24
+Info (12130): Elaborated megafunction instantiation "chip8:cpu|lpm_divide:Div1" File: D:/source/fpga_workbench/chip8.v Line: 444
+Info (12133): Instantiated megafunction "chip8:cpu|lpm_divide:Div1" with the following parameter: File: D:/source/fpga_workbench/chip8.v Line: 444
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ihm.tdf
+    Info (12023): Found entity 1: lpm_divide_ihm File: D:/source/fpga_workbench/db/lpm_divide_ihm.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_akh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_akh File: D:/source/fpga_workbench/db/sign_div_unsign_akh.tdf Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_84f.tdf
+    Info (12023): Found entity 1: alt_u_div_84f File: D:/source/fpga_workbench/db/alt_u_div_84f.tdf Line: 26
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13034): The following nodes have both tri-state and non-tri-state drivers
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[0]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[1]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[2]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[3]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[4]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[5]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[6]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[7]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[8]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[9]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[10]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[11]" and its non-tri-state driver. File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "DRAM_DQ[0]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 118
     Warning (13040): bidirectional pin "DRAM_DQ[1]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 118
@@ -876,19 +1236,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0[31]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 161
     Warning (13040): bidirectional pin "GPIO_0[32]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 161
     Warning (13040): bidirectional pin "GPIO_0[33]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 161
-    Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[7]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[9]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
-    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
     Warning (13040): bidirectional pin "GPIO_1[13]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
     Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
     Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
@@ -910,17 +1257,25 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
     Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
     Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+Warning (13032): The following tri-state nodes are fed by constants
+    Warning (13033): The pin "GPIO_1[12]" is fed by VCC File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
 Info (13000): Registers with preset signals will power-up high File: D:/source/fpga_workbench/chip8.v Line: 86
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13009): TRI or OPNDRN buffers permanently enabled
+    Warning (13010): Node "GPIO_1[0]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[1]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[2]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[3]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[4]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[5]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[6]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[7]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[8]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[9]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[10]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[11]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
+    Warning (13010): Node "GPIO_1[12]~synth" File: D:/source/fpga_workbench/DE0_Nano.v Line: 168
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LED[0]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[1]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[2]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[3]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[4]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[5]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[6]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
-    Warning (13410): Pin "LED[7]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 94
     Warning (13410): Pin "DRAM_ADDR[0]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 112
     Warning (13410): Pin "DRAM_ADDR[1]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 112
     Warning (13410): Pin "DRAM_ADDR[2]" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 112
@@ -953,6 +1308,7 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "ADC_SADDR" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 146
     Warning (13410): Pin "ADC_SCLK" is stuck at GND File: D:/source/fpga_workbench/DE0_Nano.v Line: 147
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
+Info (17049): 8 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 14 input pin(s) that do not drive logic
@@ -970,16 +1326,16 @@ Warning (21074): Design contains 14 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "GPIO_0_IN[1]" File: D:/source/fpga_workbench/DE0_Nano.v Line: 162
     Warning (15610): No output dependent on input pin "GPIO_1_IN[0]" File: D:/source/fpga_workbench/DE0_Nano.v Line: 169
     Warning (15610): No output dependent on input pin "GPIO_1_IN[1]" File: D:/source/fpga_workbench/DE0_Nano.v Line: 169
-Info (21057): Implemented 1731 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 9845 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 20 input pins
     Info (21059): Implemented 40 output pins
     Info (21060): Implemented 98 bidirectional pins
-    Info (21061): Implemented 1564 logic cells
-    Info (21064): Implemented 8 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 285 warnings
-    Info: Peak virtual memory: 4891 megabytes
-    Info: Processing ended: Sat Nov 30 19:03:21 2019
-    Info: Elapsed time: 00:01:32
-    Info: Total CPU time (on all processors): 00:01:32
+    Info (21061): Implemented 9614 logic cells
+    Info (21064): Implemented 72 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 316 warnings
+    Info: Peak virtual memory: 4903 megabytes
+    Info: Processing ended: Mon Dec 02 23:52:07 2019
+    Info: Elapsed time: 00:01:12
+    Info: Total CPU time (on all processors): 00:01:29
 
 

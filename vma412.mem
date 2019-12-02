@@ -20,7 +20,7 @@ C0C0 D021                       //Power Control 1 [26]
 C0C1 D011                       //Power Control 2 [00]
 C0C5 D03F D03C                  //VCOM 1 [31 3C]
 C0C7 D0B5                       //VCOM 2 [C0]
-C036 D048                       //Memory Access [00]
+C036 D058                       //Memory Access [00]
 C0F2 D000                       //Enable 3G [02]
 C026 D001                       //Gamma Set [01]
 C0E0 D00f D026 D024 D00b D00e D009 D054 D0a8 D046 D00c D017 D009 D00f D007 D000
@@ -29,10 +29,10 @@ C011                            //Sleep Out
 C029                            //Display On
 
 // Set size of screen to 64*32
-C02A D000 D04F
-C02B D000 D01F
+C02A D000 D000 D000 D03F
+C02B D000 D000 D000 D01F
 
 // Write to screen
 C02C
 F800
-B002
+B001

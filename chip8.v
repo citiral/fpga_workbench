@@ -14,7 +14,7 @@ module chip8(
 	output reg[63:0] vram_data_out,
 	output reg vram_write,
 
-	output wire[7:0] register_0
+	output wire[7:0] debug_output
 );
 
 parameter INSTR_FETCH1=0, INSTR_FETCH2=1, INSTR_EXEC1=2, INSTR_EXEC2=3, DELAY=4, HARDFAULT=5;
@@ -25,6 +25,7 @@ reg[11:0] register_adr;
 reg[11:0] pc;
 reg[7:0] chip8_dtimer;
 reg[7:0] chip8_stimer;
+assign debug_output = pc;
 
 // Current instruction being executed
 reg[15:0] instruction;
@@ -67,12 +68,14 @@ always @(posedge clock, negedge reset) begin
 		
 		vram_write = 0;
 		vram_address_out = 0;
-		vram_data_out = 0;		
+		vram_data_out = 0;
 		
 		for (i = 0 ; i < 16 ; i = i+1)
 			registers_data[i] = 0;
 		register_adr = 0;		
-		pc = 12'h200;
+		pc = 12'h1FE;
+		chip8_dtimer = 0;
+		chip8_stimer = 0;
 		
 		stack_size = 0;
 		
@@ -80,6 +83,11 @@ always @(posedge clock, negedge reset) begin
 		stage = INSTR_FETCH1;
 		
 	end else begin	
+		if (chip8_dtimer > 0)
+			chip8_dtimer = chip8_dtimer - 1;
+		if (chip8_stimer > 0)
+			chip8_stimer = chip8_stimer - 1;
+			
 		// If it is a delay stage, do nothing for delay cycles
 		if (stage == DELAY) begin
 			delay_time = delay_time - 1;
@@ -146,9 +154,11 @@ always @(posedge clock, negedge reset) begin
 			//       Set VF to 00 if a borrow occurs
 			//       Set VF to 01 if a borrow does not occur
 			else if (instruction[15:12] == 4'h8 && instruction[3:0] == 4'h5) begin
-				tmp = registers_data[instruction[11:8]] - registers_data[instruction[7:4]];
-				registers_data[instruction[11:8]] = tmp[7:0];
-				registers_data[15] = !tmp[8];
+				if (registers_data[instruction[11:8]] < registers_data[instruction[7:4]])
+					registers_data[15] = 0;
+				else
+					registers_data[15] = 1;
+				registers_data[instruction[11:8]] = registers_data[instruction[11:8]] - registers_data[instruction[7:4]];
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
 			end
@@ -156,10 +166,12 @@ always @(posedge clock, negedge reset) begin
 			// 8XY7: Set register VX to the value of VY minus VX
 			//       Set VF to 00 if a borrow occurs
 			//       Set VF to 01 if a borrow does not occur
-			else if (instruction[15:12] == 4'h8 && instruction[3:0] == 4'h5) begin
-				tmp = registers_data[instruction[11:8]] - registers_data[instruction[7:4]];
-				registers_data[instruction[7:4]] = tmp[7:0];
-				registers_data[15] = !tmp[8];
+			else if (instruction[15:12] == 4'h8 && instruction[3:0] == 4'h7) begin
+				if (registers_data[instruction[7:4]] < registers_data[instruction[11:8]])
+					registers_data[15] = 0;
+				else
+					registers_data[15] = 1;
+				registers_data[instruction[11:8]] = registers_data[instruction[7:4]] - registers_data[instruction[11:8]];
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
 			end
@@ -188,8 +200,8 @@ always @(posedge clock, negedge reset) begin
 			// 8XY6: Store the value of register VY shifted right one bit in register VX
 			//       Set register VF to the least significant bit prior to the shift
 			else if (instruction[15:12] == 4'h8 && instruction[3:0] == 4'h6) begin
-				registers_data[15] = registers_data[instruction[7:4]][0];
-				registers_data[instruction[11:8]] = registers_data[instruction[7:4]] >> 1;
+				registers_data[15] = registers_data[instruction[11:8]][0];
+				registers_data[instruction[11:8]] = registers_data[instruction[11:8]] >> 1; // IN LEGACY MODE THIS SHOULD SHIFT VY
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
 			end
@@ -197,8 +209,8 @@ always @(posedge clock, negedge reset) begin
 			// 8XYE: Store the value of register VY shifted left one bit in register VX
 			//       Set register VF to the most significant bit prior to the shift
 			else if (instruction[15:12] == 4'h8 && instruction[3:0] == 4'hE) begin
-				registers_data[15] = registers_data[instruction[7:4]][7];
-				registers_data[instruction[11:8]] = registers_data[instruction[7:4]] << 1;
+				registers_data[15] = registers_data[instruction[11:8]][7];
+				registers_data[instruction[11:8]] = registers_data[instruction[11:8]] << 1; // IN LEGACY MODE THIS SHOULD SHIFT VY
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
 			end
@@ -225,9 +237,8 @@ always @(posedge clock, negedge reset) begin
 			
 			//00EE: Return from a subroutine
 			else if (instruction[15:0] == 8'h00EE) begin
-				stack[stack_size] = pc;
-				stack_size = stack_size + 1;
-				pc = instruction[11:0];
+				pc = stack[stack_size - 1] + 2;
+				stack_size = stack_size - 1;
 				stage = INSTR_FETCH1;
 			end
 			
@@ -359,7 +370,7 @@ always @(posedge clock, negedge reset) begin
 			//FX29: Set I to the memory address of the sprite data corresponding to the hexadecimal digit stored in register VX
 			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h29) begin
 				// values are stored starting from 0, being 5 bytes per character
-				register_adr = instruction[11:8] * 5;
+				register_adr = registers_data[instruction[11:8]] * 5;
 				pc = pc + 2;
 				stage = INSTR_FETCH1;
 			end
@@ -390,6 +401,15 @@ always @(posedge clock, negedge reset) begin
 			end
 			
 			//FX33: Store the binary-coded decimal equivalent of the value stored in register VX at addresses I, I+1, and I+2
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h33) begin
+				tmp = 0;
+				ram_write = 1;
+				ram_address_out = register_adr;
+				ram_data_out = registers_data[instruction[11:8]] / 100;
+				delay_stage(INSTR_EXEC2, 2);
+			end
+			
+			
 			//0NNN: Execute machine language subroutine at address NNN
 			//CXNN: Set VX to a random number with a mask of NN
 			
@@ -404,7 +424,7 @@ always @(posedge clock, negedge reset) begin
 		else if (stage == INSTR_EXEC2) begin
 		
 			//00E0: Clear the screen
-			if (instruction[15:0] == 8'h00EE) begin
+			if (instruction[15:0] == 8'h00E0) begin
 				if (tmp >= 32) begin
 					vram_write = 0;
 					pc = pc + 2;
@@ -413,6 +433,22 @@ always @(posedge clock, negedge reset) begin
 				
 				tmp = tmp + 1;
 				vram_address_out = tmp;				
+			end
+			
+			//FX33: Store the binary-coded decimal equivalent of the value stored in register VX at addresses I, I+1, and I+2
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h33) begin
+				tmp = tmp + 1;
+				ram_address_out = register_adr + tmp;
+				
+				if (tmp == 1) begin
+					ram_data_out = (registers_data[instruction[11:8]] % 100) / 10;
+					delay_stage(INSTR_EXEC2, 2);
+				end else begin
+					ram_data_out = registers_data[instruction[11:8]] % 10;
+					pc = pc + 2;
+					delay_stage(INSTR_FETCH1, 2);
+				end
+				
 			end
 		
 			//FX55: Store the values of registers V0 to VX inclusive in memory starting at address I
@@ -425,9 +461,10 @@ always @(posedge clock, negedge reset) begin
 					delay_stage(INSTR_FETCH1, 1);
 				end else begin
 					ram_write = 1;
-					ram_address_out = register_adr;
+					ram_address_out = register_adr + tmp;
 					ram_data_out = registers_data[tmp];
-					register_adr = register_adr + 1;
+					// IN LEGACY MODE THIS SHOULD INCREMENT REGISTER_ADR
+					//register_adr = register_adr + 1;
 					tmp = tmp + 1;
 				end
 			end
@@ -436,15 +473,16 @@ always @(posedge clock, negedge reset) begin
 			//      I is set to I + X + 1 after operation
 			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h65) begin
 				registers_data[tmp] = ram_data_in;
-				tmp = tmp + 1;
-				register_adr = register_adr + 1;
+				tmp = tmp + 1;				
+				// IN LEGACY MODE THIS SHOULD INCREMENT REGISTER_ADR
+				//register_adr = register_adr + 1;
 				
 				// End the instruction once all bytes have been read
 				if (tmp > instruction[11:8]) begin
 					pc = pc + 2;
 					stage = INSTR_FETCH1;
 				end else begin
-					ram_address_out = register_adr;
+					ram_address_out = register_adr + tmp;
 					delay_stage(INSTR_EXEC2, 2);
 				end
 			end
@@ -459,7 +497,7 @@ always @(posedge clock, negedge reset) begin
 						if (vram_data_in[registers_data[instruction[11:8]] + i] & ram_data_in[7 - i]) begin
 							registers_data[15] = 1;
 						end
-						vram_data_out[registers_data[instruction[11:8]] + i] = ram_data_in[7 - i];
+						vram_data_out[registers_data[instruction[11:8]] + i] = vram_data_out[registers_data[instruction[11:8]] + i] ^ ram_data_in[7 - i];
 					end
 					
 					vram_write = 1;
@@ -467,6 +505,7 @@ always @(posedge clock, negedge reset) begin
 				end
 				// End the operation
 				else if (tmp + 1 >= instruction[3:0]) begin
+					vram_write = 0;
 					pc = pc + 2;
 					stage = INSTR_FETCH1;
 				end

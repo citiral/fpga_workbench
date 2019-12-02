@@ -51,7 +51,7 @@ ram2 RAM1 (
 	ram1_data_out_a
 );
 
-/*
+
 vma412 lcd (
 	CLOCK_50,
 	KEY[0],
@@ -61,10 +61,10 @@ vma412 lcd (
 	GPIO_1[10],
 	GPIO_1[11],
 	GPIO_1[12],
-	screen_adr,
-	screen_data
-);*/
-
+	vram_data_out_b,
+	vram_address_in_b,
+	vram_wren_b
+);
 
 ram1 VRAM (
 	vram_address_in_a,

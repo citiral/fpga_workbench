@@ -231,13 +231,7 @@ ram1 VRAM (
 	vram_data_out_b
 );
 
-/*vma412 lcd (
-	CLOCK_50,
-	KEY[0],	
-	screen
-);*/
-
-/*vma412 lcd (
+vma412 lcd (
 	CLOCK_50,
 	KEY[0],
 	GPIO_1[7:0],
@@ -246,9 +240,10 @@ ram1 VRAM (
 	GPIO_1[10],
 	GPIO_1[11],
 	GPIO_1[12],
-	screen_adr,
-	screen_data
-);*/
+	vram_data_out_b,
+	vram_address_in_b,
+	vram_wren_b
+);
 
 
 endmodule
