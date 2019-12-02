@@ -42,15 +42,15 @@ module ram1 (
 	q_a,
 	q_b);
 
-	input	[11:0]  address_a;
-	input	[11:0]  address_b;
+	input	[4:0]  address_a;
+	input	[4:0]  address_b;
 	input	  clock;
-	input	[7:0]  data_a;
-	input	[7:0]  data_b;
+	input	[63:0]  data_a;
+	input	[63:0]  data_b;
 	input	  wren_a;
 	input	  wren_b;
-	output	[7:0]  q_a;
-	output	[7:0]  q_b;
+	output	[63:0]  q_a;
+	output	[63:0]  q_b;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -96,18 +96,18 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MEMSIZE NUMERIC "32768"
+// Retrieval info: PRIVATE: MEMSIZE NUMERIC "2048"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING ""
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
-// Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "1"
+// Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_MIXED_PORTS NUMERIC "1"
-// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "4"
-// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_B NUMERIC "4"
+// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "1"
+// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_B NUMERIC "3"
 // Retrieval info: PRIVATE: REGdata NUMERIC "1"
-// Retrieval info: PRIVATE: REGq NUMERIC "1"
+// Retrieval info: PRIVATE: REGq NUMERIC "0"
 // Retrieval info: PRIVATE: REGrdaddress NUMERIC "0"
 // Retrieval info: PRIVATE: REGrren NUMERIC "0"
 // Retrieval info: PRIVATE: REGwraddress NUMERIC "1"
@@ -116,10 +116,10 @@ endmodule
 // Retrieval info: PRIVATE: USE_DIFF_CLKEN NUMERIC "0"
 // Retrieval info: PRIVATE: UseDPRAM NUMERIC "1"
 // Retrieval info: PRIVATE: VarWidth NUMERIC "0"
-// Retrieval info: PRIVATE: WIDTH_READ_A NUMERIC "8"
-// Retrieval info: PRIVATE: WIDTH_READ_B NUMERIC "8"
-// Retrieval info: PRIVATE: WIDTH_WRITE_A NUMERIC "8"
-// Retrieval info: PRIVATE: WIDTH_WRITE_B NUMERIC "8"
+// Retrieval info: PRIVATE: WIDTH_READ_A NUMERIC "64"
+// Retrieval info: PRIVATE: WIDTH_READ_B NUMERIC "64"
+// Retrieval info: PRIVATE: WIDTH_WRITE_A NUMERIC "64"
+// Retrieval info: PRIVATE: WIDTH_WRITE_B NUMERIC "64"
 // Retrieval info: PRIVATE: WRADDR_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: WRADDR_REG_B NUMERIC "1"
 // Retrieval info: PRIVATE: WRCTRL_ACLR_B NUMERIC "0"
@@ -134,42 +134,42 @@ endmodule
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK0"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "4096"
-// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "4096"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "32"
+// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "32"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "BIDIR_DUAL_PORT"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
-// Retrieval info: CONSTANT: OUTDATA_REG_A STRING "CLOCK0"
-// Retrieval info: CONSTANT: OUTDATA_REG_B STRING "CLOCK0"
+// Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
+// Retrieval info: CONSTANT: OUTDATA_REG_B STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_MIXED_PORTS STRING "OLD_DATA"
-// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_WITH_NBE_READ"
-// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_WITH_NBE_READ"
-// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "12"
-// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "12"
-// Retrieval info: CONSTANT: WIDTH_A NUMERIC "8"
-// Retrieval info: CONSTANT: WIDTH_B NUMERIC "8"
+// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "OLD_DATA"
+// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_NO_NBE_READ"
+// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "5"
+// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "5"
+// Retrieval info: CONSTANT: WIDTH_A NUMERIC "64"
+// Retrieval info: CONSTANT: WIDTH_B NUMERIC "64"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_B NUMERIC "1"
 // Retrieval info: CONSTANT: WRCONTROL_WRADDRESS_REG_B STRING "CLOCK0"
-// Retrieval info: USED_PORT: address_a 0 0 12 0 INPUT NODEFVAL "address_a[11..0]"
-// Retrieval info: USED_PORT: address_b 0 0 12 0 INPUT NODEFVAL "address_b[11..0]"
+// Retrieval info: USED_PORT: address_a 0 0 5 0 INPUT NODEFVAL "address_a[4..0]"
+// Retrieval info: USED_PORT: address_b 0 0 5 0 INPUT NODEFVAL "address_b[4..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
-// Retrieval info: USED_PORT: data_a 0 0 8 0 INPUT NODEFVAL "data_a[7..0]"
-// Retrieval info: USED_PORT: data_b 0 0 8 0 INPUT NODEFVAL "data_b[7..0]"
-// Retrieval info: USED_PORT: q_a 0 0 8 0 OUTPUT NODEFVAL "q_a[7..0]"
-// Retrieval info: USED_PORT: q_b 0 0 8 0 OUTPUT NODEFVAL "q_b[7..0]"
+// Retrieval info: USED_PORT: data_a 0 0 64 0 INPUT NODEFVAL "data_a[63..0]"
+// Retrieval info: USED_PORT: data_b 0 0 64 0 INPUT NODEFVAL "data_b[63..0]"
+// Retrieval info: USED_PORT: q_a 0 0 64 0 OUTPUT NODEFVAL "q_a[63..0]"
+// Retrieval info: USED_PORT: q_b 0 0 64 0 OUTPUT NODEFVAL "q_b[63..0]"
 // Retrieval info: USED_PORT: wren_a 0 0 0 0 INPUT GND "wren_a"
 // Retrieval info: USED_PORT: wren_b 0 0 0 0 INPUT GND "wren_b"
-// Retrieval info: CONNECT: @address_a 0 0 12 0 address_a 0 0 12 0
-// Retrieval info: CONNECT: @address_b 0 0 12 0 address_b 0 0 12 0
+// Retrieval info: CONNECT: @address_a 0 0 5 0 address_a 0 0 5 0
+// Retrieval info: CONNECT: @address_b 0 0 5 0 address_b 0 0 5 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
-// Retrieval info: CONNECT: @data_a 0 0 8 0 data_a 0 0 8 0
-// Retrieval info: CONNECT: @data_b 0 0 8 0 data_b 0 0 8 0
+// Retrieval info: CONNECT: @data_a 0 0 64 0 data_a 0 0 64 0
+// Retrieval info: CONNECT: @data_b 0 0 64 0 data_b 0 0 64 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren_a 0 0 0 0
 // Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
-// Retrieval info: CONNECT: q_a 0 0 8 0 @q_a 0 0 8 0
-// Retrieval info: CONNECT: q_b 0 0 8 0 @q_b 0 0 8 0
+// Retrieval info: CONNECT: q_a 0 0 64 0 @q_a 0 0 64 0
+// Retrieval info: CONNECT: q_b 0 0 64 0 @q_b 0 0 64 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL ram1.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL ram1.inc FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL ram1.cmp FALSE

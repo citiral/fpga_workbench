@@ -5,10 +5,14 @@ module chip8(
 	input wire[15:0] input_in,
 
 	input wire[7:0] ram_data_in,
-
 	output reg[11:0] ram_address_out,
 	output reg[7:0] ram_data_out,
 	output reg ram_write,
+	
+	input wire[63:0] vram_data_in,
+	output reg[4:0] vram_address_out,
+	output reg[63:0] vram_data_out,
+	output reg vram_write,
 
 	output wire[7:0] register_0
 );
@@ -45,9 +49,6 @@ integer i;
 reg[12:0] stack[0:255];
 reg[7:0] stack_size;
 
-// Screen data
-reg[7:0] screen[0:32*64-1];
-
 
 // Run an instruction with delay
 task delay_stage(input[2:0] next_stage, input[2:0] count);
@@ -68,6 +69,10 @@ always @(posedge clock, negedge reset) begin
 		ram_address_out = 0;
 		ram_data_out = 0;
 		
+		vram_write = 0;
+		vram_address_out = 0;
+		vram_data_out = 0;		
+		
 		for (i = 0 ; i < 16 ; i = i+1)
 			registers_data[i] = 0;
 		register_adr = 0;		
@@ -77,9 +82,6 @@ always @(posedge clock, negedge reset) begin
 		
 		instruction = 0;
 		stage = INSTR_FETCH1;
-		
-		for (i = 0 ; i < 32*64 ; i = i+1)
-			screen[i] = 0;
 		
 	end else begin	
 		// If it is a delay stage, do nothing for delay cycles
@@ -351,10 +353,11 @@ always @(posedge clock, negedge reset) begin
 			
 			//00E0: Clear the screen
 			else if (instruction[15:0] == 16'h00E0) begin
-				for (i = 0 ; i < 32*64 ; i = i+1)
-					screen[i] = 0;
-				pc = pc + 2;
-				stage = INSTR_FETCH1;
+				tmp = 0;
+				vram_data_out = 0;
+				vram_address_out = 0;
+				vram_write = 1;
+				stage = INSTR_EXEC2;
 			end
 			
 			//FX29: Set I to the memory address of the sprite data corresponding to the hexadecimal digit stored in register VX
@@ -385,6 +388,7 @@ always @(posedge clock, negedge reset) begin
 			else if (instruction[15:12] == 4'hD) begin
 				registers_data[15] = 0;
 				ram_address_out = register_adr;
+				vram_address_out = registers_data[instruction[7:4]];
 				tmp = 0;
 				delay_stage(INSTR_EXEC2, 2);
 			end
@@ -403,9 +407,21 @@ always @(posedge clock, negedge reset) begin
 		
 		else if (stage == INSTR_EXEC2) begin
 		
+			//00E0: Clear the screen
+			if (instruction[15:0] == 8'h00EE) begin
+				if (tmp >= 32) begin
+					vram_write = 0;
+					pc = pc + 2;
+					stage = INSTR_FETCH1;
+				end
+				
+				tmp = tmp + 1;
+				vram_address_out = tmp;				
+			end
+		
 			//FX55: Store the values of registers V0 to VX inclusive in memory starting at address I
 			//      I is set to I + X + 1 after operation
-			if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h55) begin
+			else if (instruction[15:12] == 4'hF && instruction[7:0] == 8'h55) begin
 				// End the instruction once all bytes have been written
 				if (tmp > instruction[11:8]) begin
 					ram_write = 0;
@@ -440,18 +456,31 @@ always @(posedge clock, negedge reset) begin
 			//DXYN: Draw a sprite at position VX, VY with N bytes of sprite data starting at the address stored in I
 			//      Set VF to 01 if any set pixels are changed to unset, and 00 otherwise
 			else if (instruction[15:12] == 4'hD) begin
-				if (screen[registers_data[instruction[11:8]]+(registers_data[instruction[7:4]] + tmp)*64] & ram_data_in > 0) begin
-					registers_data[15] = 1;
+				
+				// Update the row of pixel data with this byte
+				if (vram_write == 0) begin
+					vram_data_out = vram_data_in;
+					for (i = 0 ; i < 8 ; i = i + 1) begin
+						if (vram_data_in[registers_data[instruction[11:8]] + i] & ram_data_in[7 - i]) begin
+							registers_data[15] = 1;
+						end
+						vram_data_out[registers_data[instruction[11:8]] + i] = ram_data_in[7 - i];
+					end
+					
+					vram_write = 1;
+					delay_stage(INSTR_EXEC2, 2);
 				end
-				screen[registers_data[instruction[11:8]]+(registers_data[instruction[7:4]] + tmp)*64] = ram_data_in;
-				
-				tmp = tmp + 1;
-				
-				if (tmp >= instruction[3:0]) begin
+				// End the operation
+				else if (tmp + 1 >= instruction[3:0]) begin
 					pc = pc + 2;
 					stage = INSTR_FETCH1;
-				end else begin
+				end
+				// Get the next row of pixel data
+				else begin
+					tmp = tmp + 1;
 					ram_address_out = register_adr + tmp;
+					vram_write = 0;
+					vram_address_out = registers_data[instruction[7:4]] + tmp;
 					delay_stage(INSTR_EXEC2, 2);
 				end
 			end
