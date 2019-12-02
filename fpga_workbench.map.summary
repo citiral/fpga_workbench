@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Mon Dec 02 23:56:25 2019
+Analysis & Synthesis Status : Successful - Tue Dec 03 00:01:35 2019
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : fpga_workbench
 Top-level Entity Name : DE0_Nano
 Family : Cyclone IV E
-Total logic elements : 9,526
-    Total combinational functions : 8,368
+Total logic elements : 9,719
+    Total combinational functions : 8,561
     Dedicated logic registers : 3,625
 Total registers : 3625
 Total pins : 154
