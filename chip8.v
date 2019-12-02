@@ -412,7 +412,11 @@ always @(posedge clock, negedge reset) begin
 			
 			//0NNN: Execute machine language subroutine at address NNN
 			//CXNN: Set VX to a random number with a mask of NN
-			
+			else if (instruction[15:12] == 4'hC) begin
+				registers_data[instruction[11:8]] = 0; // TODO
+				pc = pc + 2;
+				stage = INSTR_FETCH1;
+			end
 			
 			// invalid instruction = hardfault
 			else begin
