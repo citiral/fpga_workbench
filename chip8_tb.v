@@ -6,31 +6,41 @@ module chip8_tb;
 localparam period = 50;
 
 wire[11:0] ram1_address_in_a;
-wire[11:0] ram1_address_in_b;
 wire[7:0] ram1_data_in_a;
-wire[7:0] ram1_data_in_b;
 wire[7:0] ram1_data_out_a;
-wire[7:0] ram1_data_out_b;
 wire ram1_wren_a;
-wire ram1_wren_b;
+
+wire[4:0] vram_address_in_a;
+wire[4:0] vram_address_in_b;
+wire[63:0] vram_data_in_a;
+wire[63:0] vram_data_in_b;
+wire[63:0] vram_data_out_a;
+wire[63:0] vram_data_out_b;
+wire vram_wren_a;
+wire vram_wren_b;
+
 
 reg CLOCK_50;
 reg[1:0] KEY;
 wire[7:0] LED;
 wire[12:0] GPIO_1;
-wire[7:0] screen_adr;
-wire screen_data;
 
 chip8 cpu(
 	CLOCK_50,
 	KEY[0],
 	KEY[1],
+	
 	ram1_data_out_a,
 	ram1_address_in_a,
 	ram1_data_in_a,
 	ram1_wren_a,
-	screen_adr,
-	screen_data
+
+	vram_data_out_a,
+	vram_address_in_a,
+	vram_data_in_a,
+	vram_wren_a,
+	
+	LED
 );
 
 ram2 RAM1 (
@@ -41,7 +51,7 @@ ram2 RAM1 (
 	ram1_data_out_a
 );
 
-
+/*
 vma412 lcd (
 	CLOCK_50,
 	KEY[0],
@@ -53,9 +63,20 @@ vma412 lcd (
 	GPIO_1[12],
 	screen_adr,
 	screen_data
+);*/
+
+
+ram1 VRAM (
+	vram_address_in_a,
+	vram_address_in_b,
+	CLOCK_50,
+	vram_data_in_a,
+	vram_data_in_b,
+	vram_wren_a,
+	vram_wren_b,
+	vram_data_out_a,
+	vram_data_out_b
 );
-
-
 
 // Generate the clock for the test bench
 always begin
