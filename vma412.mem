@@ -2,8 +2,13 @@
 // D?XX = data XX
 // FXXX = fill pixel data with XXX pixels
 // BXXX = back XXX instructions
-
+// AXXX = sleep for XXX instructions
+AFFF
+AFFF
+AFFF
 C001                            //Soft Reset
+AFFF
+AFFF
 C028                            //Display Off
 C03A D055                       //Pixel read=565 write=565.
 C0F6 D001 D001 D000             //Interface Control needs EXTC=1 MV_EOR=0 TM=0 RIM=0
@@ -27,6 +32,8 @@ C0E0 D00f D026 D024 D00b D00e D009 D054 D0a8 D046 D00c D017 D009 D00f D007 D000
 C0E1 D000 D019 D01b D004 D010 D007 D02a D047 D039 D003 D006 D006 D030 D038 D00f
 C011                            //Sleep Out
 C029                            //Display On
+AFFF
+AFFF
 
 // Set size of screen to 64*32
 C02A D000 D000 D000 D03F
@@ -35,4 +42,4 @@ C02B D000 D000 D000 D01F
 // Write to screen
 C02C
 F800
-B001
+B00C

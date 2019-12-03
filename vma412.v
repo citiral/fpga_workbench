@@ -41,7 +41,7 @@ always @(posedge clock, negedge reset) begin
 		clock_counter = 0;
 	end else begin
 		clock_counter = clock_counter + 1;
-		if (clock_counter == 4000) begin
+		if (clock_counter == 1) begin
 			clock_divided = !clock_divided;
 			clock_counter = 0;
 		end

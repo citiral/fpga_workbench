@@ -1,5 +1,5 @@
 Flow report for fpga_workbench
-Tue Dec 03 17:25:55 2019
+Tue Dec 03 23:19:24 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,17 +40,17 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue Dec 03 17:25:55 2019       ;
+; Flow Status                        ; Successful - Tue Dec 03 23:19:24 2019       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; fpga_workbench                              ;
 ; Top-level Entity Name              ; DE0_Nano                                    ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,944 / 22,320 ( 22 % )                     ;
-;     Total combinational functions  ; 4,841 / 22,320 ( 22 % )                     ;
-;     Dedicated logic registers      ; 800 / 22,320 ( 4 % )                        ;
-; Total registers                    ; 800                                         ;
+; Total logic elements               ; 4,511 / 22,320 ( 20 % )                     ;
+;     Total combinational functions  ; 4,395 / 22,320 ( 20 % )                     ;
+;     Dedicated logic registers      ; 823 / 22,320 ( 4 % )                        ;
+; Total registers                    ; 823                                         ;
 ; Total pins                         ; 154 / 154 ( 100 % )                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 34,816 / 608,256 ( 6 % )                    ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/03/2019 17:24:42 ;
+; Start date & time ; 12/03/2019 23:18:11 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; fpga_workbench      ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+----------------------------------------+----------------+-------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value  ; Entity Name ; Section Id     ;
 +--------------------------------------+----------------------------------------+----------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 154946504904387.157539028123880        ; --             ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                ; 1095366455148.157541149017400          ; --             ; --          ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --             ; --          ; chip8_tb       ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; chip8_tb                               ; --             ; --          ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Verilog Hdl                            ; --             ; --          ; eda_simulation ;
@@ -103,12 +103,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:42     ; 1.0                     ; 4886 MB             ; 00:01:08                           ;
-; Fitter               ; 00:00:13     ; 1.1                     ; 5602 MB             ; 00:00:18                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4706 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4840 MB             ; 00:00:04                           ;
-; EDA Netlist Writer   ; 00:00:06     ; 1.0                     ; 4713 MB             ; 00:00:06                           ;
-; Total                ; 00:01:06     ; --                      ; --                  ; 00:01:38                           ;
+; Analysis & Synthesis ; 00:00:43     ; 1.0                     ; 4849 MB             ; 00:01:00                           ;
+; Fitter               ; 00:00:14     ; 1.1                     ; 5488 MB             ; 00:00:17                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 4702 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.1                     ; 4819 MB             ; 00:00:04                           ;
+; EDA Netlist Writer   ; 00:00:06     ; 1.0                     ; 4703 MB             ; 00:00:06                           ;
+; Total                ; 00:01:07     ; --                      ; --                  ; 00:01:29                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -117,11 +117,11 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; NXW67237         ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; NXW67237         ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; NXW67237         ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; NXW67237         ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; NXW67237         ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; OLIVIER-DESKTOP  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; OLIVIER-DESKTOP  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; OLIVIER-DESKTOP  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; OLIVIER-DESKTOP  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; OLIVIER-DESKTOP  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
